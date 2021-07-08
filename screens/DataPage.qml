@@ -437,7 +437,7 @@ Rectangle {
             Image {
                 id: image
                 anchors.fill:parent
-                source: "imports/assets/corona_mask.png"
+                source: "../imports/assets/corona_mask.png"
                 anchors.rightMargin: 9
                 anchors.leftMargin: 9
                 anchors.bottomMargin: 9
@@ -477,6 +477,17 @@ Rectangle {
             }
         }
 
+    }
+    Timer{
+            id : timer
+            interval:500
+            running: true
+            repeat: true
+            onTriggered: {
+                slot.noteUpdate(dataPageRoot)
+                slot.coinUpdate(dataPageRoot)
+                slot.progress(dataPageRoot)
+            }
     }
     MessageDialog {
         id: exitMessage
