@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.1
 
 Rectangle {
@@ -25,6 +25,8 @@ Rectangle {
     property int fiveCoin: 0
     property int twoCoin: 0
     property int oneCoin: 0
+
+    
 
     Rectangle{
         anchors.fill: parent
@@ -484,6 +486,7 @@ Rectangle {
             running: true
             repeat: true
             onTriggered: {
+               // print('Timer Running')
                 slot.noteUpdate(dataPageRoot)
                 slot.coinUpdate(dataPageRoot)
                 slot.progress(dataPageRoot)
@@ -496,9 +499,10 @@ Rectangle {
         width: 350
         height:350
         onAccepted: {
+
             startPageRoot.isStart = false
             dataPageRoot.visible = false
-
+            slot.stop(timer)
         }
         visible:false
 

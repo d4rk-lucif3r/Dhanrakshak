@@ -16,6 +16,6 @@ CURRENCY_CONT_THINKNESS = 3
 
 # Enabling this will result in the display of extra information like: the sum of all the matches
 # for each currency
-DEBUG = True
+DEBUG = False
 
 

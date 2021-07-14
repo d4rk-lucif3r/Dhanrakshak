@@ -1,5 +1,5 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.1
 Item {
     id: root
@@ -213,7 +213,7 @@ Rectangle {
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
-                        selectorRect.visible=true
+                        selectorRect.visible = true
                         initializeStartText.visible = false
                     }}
             }
@@ -294,6 +294,7 @@ Rectangle {
             dataPage_view.visible = true
             selectorRect.visible = false
             startPageRoot.isStart = true
+           // dataPage_view.dataPageRoot.timer.running = true
             initializeStartText.visible = true
         }
         visible:false

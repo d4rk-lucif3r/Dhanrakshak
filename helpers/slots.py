@@ -20,7 +20,7 @@ class ValUpdate(QObject):
         self.twohund_list = []
         self.fivehund_list = []
         self.twothousand_list = []
-        
+        self.stopThread = True
         
         self.detectThread = Thread(target=self.startdetect)
         self.detectThread.start()
@@ -29,7 +29,7 @@ class ValUpdate(QObject):
     def startdetect(self):
         
         self.det_obj.start()
-        while True:
+        while True and self.stopThread:
             self.det_obj.detect()
             print("[INFO] Detected Currency :{}".format(
                 self.det_obj.detectedCurrency))
@@ -37,9 +37,12 @@ class ValUpdate(QObject):
                 self.det_obj.maxMatching))
             self.currency = self.det_obj.detectedCurrency
             self.accPoints = self.det_obj.maxMatching
-
-    def stop(self):
+    @Slot(QObject)
+    def stop(self, recieved_object):
+        recieved_object.setProperty('running', False)
         self.det_obj.stop()
+        self.stopThread = False
+        self.detectThread.join()
 
     @Slot(QObject)
     def noteUpdate(self, recieved_object):
@@ -81,3 +84,4 @@ class ValUpdate(QObject):
             sum(self.twohund_list) + sum(self.fivehund_list) + \
             sum(self.twothousand_list)
         recieved_object.setProperty("total", self.total)
+

@@ -1,3 +1,4 @@
+from distutils.log import error
 import math
 import os
 import time
@@ -17,7 +18,7 @@ class Detector:
         self.cache = None
         self.featureExtractor = cv2.ORB_create()
         # self.featureExtractor = cv2.BRISK()
-        self.featureExtractorSupport = cv2.xfeatures2d.BEBLID_create(0.80)
+        self.featureExtractorSupport = cv2.xfeatures2d.BEBLID_create(0.75)
         self.videoCapture = None
         self.frame = None
         self.maxMatchingsData = None
@@ -28,22 +29,18 @@ class Detector:
         self.des = None
         self.matchesSummary = {}
         index_params = dict(algorithm=6,
-                            table_number=6,  # 12
-                            key_size=12,     # 20
-                            multi_probe_level=1)  # 2
-
-
-        search_params = dict(checks=50)   # or pass empty dictionary
-
-        self.matcher = cv2.FlannBasedMatcher(index_params, search_params)
-        # self.matcher = cv2.DescriptorMatcher_create(
-        #     cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
+                            table_number=6,  
+                            key_size=12,    
+                            multi_probe_level=1)  
+        search_params = dict(checks=50)   
+        # self.matcher = cv2.FlannBasedMatcher(index_params, search_params)
+        self.matcher = cv2.DescriptorMatcher_create(
+            cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
     def start(self):
         
             start = time.time()
             print('Started Sampling')
             self.getSampleData()
-            # self.cache = cache
             end = time.time()
             print('Done sampling :', end-start)
             self.videoCapture = Stream(src=0).start()
@@ -70,7 +67,7 @@ class Detector:
         start = time.time()
         self.image = image
         keypoints = self.featureExtractor.detect(self.image, None)
-        self.kp, self.des = self.featureExtractor.compute(
+        self.kp, self.des = self.featureExtractorSupport.compute(
             self.image, keypoints)
         # self.kp, self.des = self.featureExtractor.detectAndCompute(self.image, None)
         # self.matcher.add(self.des)
@@ -81,34 +78,34 @@ class Detector:
         
 
     def filterFalsePositives(self, foundMatchings):
-        self.foundMatchings = foundMatchings
-        if not self.foundMatchings:
-            return []
 
-        self.good = []
         try:
+            self.foundMatchings = foundMatchings
+            if not self.foundMatchings:
+                return []
+
+            self.good = []
             for m, n in self.foundMatchings:
                 if m.distance < 0.7 * n.distance:
                     self.good.append(m)
 
-        except ValueError:
+        except ValueError as error:
+            # print('[ERROR] Filter False Positive : ', error)
             pass
         return self.good
 
     def getMatchingPoints(self, queryImageDes, trainImageDes):
-        start = time.time()
         self.queryImageDes = queryImageDes
         self.trainImageDes = trainImageDes
         if self.queryImageDes is None or len(self.queryImageDes) == 0:
             return []
         if self.trainImageDes is None or len(self.trainImageDes) == 0:
             return []
-        end = time.time()
-        # print('[DEBUG] Get Matching Points :', end-start)
-        # self.matcher.train()
         try:
-            return self.filterFalsePositives(self.matcher.knnMatch(self.queryImageDes, self.trainImageDes, k=2))
-        except cv2.error:
+            result = self.filterFalsePositives(self.matcher.knnMatch(self.queryImageDes, self.trainImageDes, k=2))
+            return result
+        except cv2.error as error:
+            # print('[ERROR] Get Matching Points: ', error)
             pass
 
     def buildHomographyInputData(self):

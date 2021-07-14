@@ -11,26 +11,27 @@ import random
 
 
 def runQML():
-   try:
-      app =QApplication(sys.argv)
-      slot = ValUpdate()
-      engine = QQmlApplicationEngine()
-      engine.rootContext().setContextProperty("slot", slot)
-      engine.load(QUrl.fromLocalFile('screens/Segregation.qml'))
+
+   app =QApplication(sys.argv)
+   slot = ValUpdate()
+   engine = QQmlApplicationEngine()
+   engine.rootContext().setContextProperty("slot", slot)
+   engine.load(QUrl.fromLocalFile('screens/Segregation.qml'))
 
 
-      if not engine.rootObjects():
-         return -1
-   
-   
-      return app.exec_()
-   except KeyboardInterrupt:
-      slot.stop()
+   if not engine.rootObjects():
       return -1
+
+
+   return app.exec_()
+
  
  
  
  
 if __name__ == "__main__":
-    sys.exit(runQML())
+   try:
+      sys.exit(runQML())
+   except KeyboardInterrupt:
+      sys.exit(None)
 
