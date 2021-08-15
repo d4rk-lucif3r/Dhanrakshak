@@ -1,17 +1,16 @@
-from distutils.log import error
 import math
 import os
 import time
-
 
 import cv2
 import numpy as np
 from imutils.video import FPS
 
-
 from helpers.config import *
 from helpers.stream import Stream
+
 # from helpers.keypoints import *
+
 
 class Detector:
     def __init__(self):
@@ -22,29 +21,30 @@ class Detector:
         self.videoCapture = None
         self.frame = None
         self.maxMatchingsData = None
-        self.maxMatchings = 0       
+        self.maxMatchings = 0
         self.detectedCurrency = None
         self.maxMatching = None
         self.kp = None
         self.des = None
         self.matchesSummary = {}
         index_params = dict(algorithm=6,
-                            table_number=6,  
-                            key_size=12,    
-                            multi_probe_level=1)  
-        search_params = dict(checks=50)   
+                            table_number=6,
+                            key_size=12,
+                            multi_probe_level=1)
+        search_params = dict(checks=50)
         # self.matcher = cv2.FlannBasedMatcher(index_params, search_params)
         self.matcher = cv2.DescriptorMatcher_create(
             cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
+
     def start(self):
-        
-            start = time.time()
-            print('Started Sampling')
-            self.getSampleData()
-            end = time.time()
-            print('Done sampling :', end-start)
-            self.videoCapture = Stream(src=0).start()
-            self.fps = FPS().start()
+
+        start = time.time()
+        print('Started Sampling')
+        self.getSampleData()
+        end = time.time()
+        print('Done sampling :', end-start)
+        self.videoCapture = Stream(src=0).start()
+        self.fps = FPS().start()
 
     def getSampleData(self):
         self.cache = {}
@@ -61,8 +61,6 @@ class Detector:
                     self.kp, self.des)])
             self.cache[currencyValue] = data
 
-
-
     def getFeatures(self, image):
         start = time.time()
         self.image = image
@@ -71,11 +69,9 @@ class Detector:
             self.image, keypoints)
         # self.kp, self.des = self.featureExtractor.detectAndCompute(self.image, None)
         # self.matcher.add(self.des)
-        
+
         end = time.time()
         # print('[DEBUG] Get Features :', end-start)
-        
-        
 
     def filterFalsePositives(self, foundMatchings):
 
@@ -102,7 +98,8 @@ class Detector:
         if self.trainImageDes is None or len(self.trainImageDes) == 0:
             return []
         try:
-            result = self.filterFalsePositives(self.matcher.knnMatch(self.queryImageDes, self.trainImageDes, k=2))
+            result = self.filterFalsePositives(self.matcher.knnMatch(
+                self.queryImageDes, self.trainImageDes, k=2))
             return result
         except cv2.error as error:
             # print('[ERROR] Get Matching Points: ', error)
@@ -115,14 +112,13 @@ class Detector:
             self.matches = self.maxMatchingsData[0]
             self.queryImageShape = queryImageData[0].shape
 
-
     def getPossibleCurrency(self):
         try:
             self.maxMatchingsCurrency = 0
-            self.maxMatchings =  0
+            self.maxMatchings = 0
             self.detectedCurrency = 0
             self.maxMatching = 0
-            
+
             self.getFeatures(self.frame)
 
             for currencyValue, images in self.cache.items():
@@ -139,13 +135,12 @@ class Detector:
                     totalMatches += countMatches
                     self.matchesSummary[currencyValue] = totalMatches
 
-
             self.buildHomographyInputData()
             if not (self.maxMatchingsCurrency is None) and self.maxMatchings > MIN_MATCH_COUNT:
                 self.detectedCurrency = self.maxMatchingsCurrency
                 self.maxMatching = self.maxMatchings
             self.homographyData = (self.queryImageShape,
-                                self.queryImageKeypoints, self.kp, self.matches)
+                                   self.queryImageKeypoints, self.kp, self.matches)
             self.matchingSummary = self.matchesSummary
         except Exception as error:
             pass
@@ -197,10 +192,6 @@ class Detector:
         self.frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
 
         self.getPossibleCurrency()
-        
-
-
-
 
     def detect(self):
 
@@ -211,11 +202,10 @@ class Detector:
             cv2.imshow("frame", self.frame)
         key = cv2.waitKey(1)
         self.fps.update()
-            
-    def stop(self):
-            self.fps.stop()
-            print("[INFO] elasped time: {:.2f}".format(self.fps.elapsed()))
-            print("[INFO] approx. FPS: {:.2f}".format(self.fps.fps()))
-            self.videoCapture.stop()
-            cv2.destroyAllWindows()
 
+    def stop(self):
+        self.fps.stop()
+        print("[INFO] elasped time: {:.2f}".format(self.fps.elapsed()))
+        print("[INFO] approx. FPS: {:.2f}".format(self.fps.fps()))
+        self.videoCapture.stop()
+        cv2.destroyAllWindows()

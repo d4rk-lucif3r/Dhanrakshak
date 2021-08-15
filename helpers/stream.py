@@ -1,7 +1,10 @@
-import cv2
 from threading import Thread
+
+import cv2
+
+
 class Stream:
-    
+
     def __init__(self, src=0):
         # initialize the video camera stream and read the first frame
         # from the stream

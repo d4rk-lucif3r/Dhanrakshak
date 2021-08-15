@@ -1,8 +1,10 @@
-from PySide2.QtCore import QObject, Slot
-from helpers.detector2 import Detector
-from threading import Thread
-from helpers.config import *
 import random
+from threading import Thread
+
+from PySide2.QtCore import QObject, Slot
+
+from helpers.config import *
+from helpers.detector import Detector
 
 
 class ValUpdate(QObject):
@@ -21,13 +23,16 @@ class ValUpdate(QObject):
         self.fivehund_list = []
         self.twothousand_list = []
         self.stopThread = True
-        
-        self.detectThread = Thread(target=self.startdetect)
-        self.detectThread.start()
-        
+
+        # self.detectThread = Thread(target=self.startdetect)
+        # self.detectThread.start()
+    @Slot()
+    def start(self):
+        # self.stopThread = False
+        # self.det_obj.start()
+        print('[INFO] Started')
 
     def startdetect(self):
-        
         self.det_obj.start()
         while True and self.stopThread:
             self.det_obj.detect()
@@ -37,12 +42,21 @@ class ValUpdate(QObject):
                 self.det_obj.maxMatching))
             self.currency = self.det_obj.detectedCurrency
             self.accPoints = self.det_obj.maxMatching
+
+    @Slot(QObject)
+    def methodCheck(self, recieved_object):
+        self.noteUV = recieved_object.property('noteisUV')
+        self.noteEthanol = recieved_object.property('noteisEthanol')
+        self.coinUV = recieved_object.property('coinisUV')
+        self.coinEthanol = recieved_object.property('coinisEthanol')
+
     @Slot(QObject)
     def stop(self, recieved_object):
         recieved_object.setProperty('running', False)
-        self.det_obj.stop()
-        self.stopThread = False
-        self.detectThread.join()
+        print("[INFO] Stopped")
+        # self.det_obj.stop()
+        # self.stopThread = False
+        # self.detectThread.join()
 
     @Slot(QObject)
     def noteUpdate(self, recieved_object):
@@ -69,6 +83,7 @@ class ValUpdate(QObject):
             self.twothousand_list.append(2000)
             recieved_object.setProperty(
                 "twoThNote", len(self.twothousand_list))
+
     @Slot(QObject)
     def coinUpdate(self, recieved_object):
         recieved_object.setProperty("twentyCoin", random.randint(0, 120))
@@ -84,4 +99,3 @@ class ValUpdate(QObject):
             sum(self.twohund_list) + sum(self.fivehund_list) + \
             sum(self.twothousand_list)
         recieved_object.setProperty("total", self.total)
-

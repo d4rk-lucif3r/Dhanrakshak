@@ -275,11 +275,12 @@ Rectangle {
                 Text {
                     id: canceBtText
                    anchors.fill:parent
-                    text: qsTr("Cancel")
+                    text: qsTr("Stop")
                     font.pixelSize: 35
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    font.family: "Source Sans Pro Light"
+                    font.bold: false
+                    font.family: "Source Sans Pro "
                 }
                 MouseArea{
                     anchors.fill: parent
@@ -288,7 +289,7 @@ Rectangle {
                     {
                         //popup.open()
                     //dataPageRoot.visible = false
-                    exitMessage.visible = true
+                    exitmessagealert.visible = true
 
                     }
 
@@ -478,7 +479,123 @@ Rectangle {
                 font.bold: false
             }
         }
+        Rectangle{
+            id : exitmessagealert
+            x: 265
+            y: 173
+            width:271
+            height:135
+            visible: false
+            color: "#ecc679"
+            radius: 15
+            border.color :'#000000'
+            border.width : 2
 
+            Rectangle {
+                id: alertmsgrect
+                x: 8
+                y: 38
+                width: 255
+                height: 51
+                color: "#999999"
+                radius: 15
+                border.color :'#000000'
+                border.width : 2
+
+                Text {
+                    id: alertmsgtxt
+                    text: qsTr("Do you want to cancel??")
+                    anchors.fill: parent
+                    font.pixelSize: 15
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.topMargin: 0
+                    font.family: "Source Sans Pro Black"
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: alertcancelrect
+                x: 8
+                y: 95
+                width: 120
+                height: 32
+                color: "#de5454"
+                radius: 15
+                border.color :'#000000'
+                border.width : 2
+
+                Text {
+                    id: alertcanceltxt
+                    text: qsTr("No")
+                    anchors.fill: parent
+                    font.pixelSize: 15
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+
+                }
+                MouseArea{
+                anchors.fill:parent
+                onClicked: {
+                    exitmessagealert.visible = false
+                }
+                }
+            }
+
+            Rectangle {
+                id: alertstartrect
+                x: 143
+                y: 95
+                width: 120
+                height: 32
+                color: "#a5f17c"
+                radius: 15
+                border.color :'#000000'
+                border.width : 2
+                Text {
+                    id: alertstarttext
+                    text: qsTr("Yes")
+                    anchors.fill: parent
+                    font.pixelSize: 15
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                }
+                MouseArea{
+                anchors.fill:parent
+                onClicked: {
+                    slot.stop(timer)
+                    load_page('Page 1')
+
+                }
+                }
+            }
+
+            Rectangle {
+                id: alertmsgheadrect
+                x: 8
+                y: 8
+                width: 255
+                height: 24
+                color: "#999999"
+                radius: 15
+                border.color: "#000000"
+                border.width: 2
+                Text {
+                    id: alertmsgheadtxt
+                    text: qsTr("Alert Needed!")
+                    anchors.fill: parent
+                    font.pixelSize: 15
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.topMargin: 0
+                    font.family: "Source Sans Pro Black"
+                    font.bold: true
+                }
+            }
+        }
     }
     Timer{
             id : timer
@@ -486,34 +603,11 @@ Rectangle {
             running: true
             repeat: true
             onTriggered: {
-               // print('Timer Running')
                 slot.noteUpdate(dataPageRoot)
                 slot.coinUpdate(dataPageRoot)
                 slot.progress(dataPageRoot)
             }
     }
-    MessageDialog {
-        id: exitMessage
-        title: "Exit"
-        text: "You're about to exit!!"
-        width: 350
-        height:350
-        onAccepted: {
-
-            startPageRoot.isStart = false
-            dataPageRoot.visible = false
-            slot.stop(timer)
-        }
-        visible:false
-
-    }
-
-
-
 
 }
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:1.100000023841858}
-}
-##^##*/
+
