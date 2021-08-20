@@ -21,13 +21,25 @@ Detection of note is done through pure mecchanical means based on the diameter o
 Camera placed inside the machine sends continous video streams while the process is working.
 The detection algorithm is trained on hundreds of notes and is able to identify most of the torned notes
 
-#### Internal working of Algorithms
+#### Internal working
 
 Video Stream is captured through camera then keypoints and features are extracted from this video stream of currency notes and is matched with the keypoints and features of training data using [Descriptive Matcher](https://docs.opencv.org/3.4/db/d39/classcv_1_1DescriptorMatcher.html) with [Bruteforce Hamming](https://docs.opencv.org/3.4/db/d39/classcv_1_1DescriptorMatcher.html#aea3d791a454b74e7a215b926e98cef24a7362dae849e477ed4b1bc862c8ebb5c4)
 
 ### UI
 
 User interface is made with the help of [QT](https://www.qt.io/) and is connected with Python based backend with the help of [Pyside2](https://pypi.org/project/PySide2/) and self developed [Slots](https://github.com/d4rk-lucif3r/Dhanrakshak/blob/master/helpers/slots.py) which are responsible to render data from sensors to UI
+
+**Start Page**
+
+![Starting Page](https://github.com/d4rk-lucif3r/Dhanrakshak/blob/master/assets/Screens/StartPage.png)
+
+**Select Method Page**
+
+![Select Method Page](https://github.com/d4rk-lucif3r/Dhanrakshak/blob/master/assets/Screens/StartPage%2BSelectMethod.png)
+
+**Data Page**
+
+![Data Page](https://github.com/d4rk-lucif3r/Dhanrakshak/blob/master/assets/Screens/DataPage.png)
 
 ---
 
