@@ -21,7 +21,7 @@ Rectangle {
     Rectangle{
         anchors.fill: parent
         id:pageRect
-        color: "#bdbdbd"
+        color: "#d1d9ff"
         radius: 0
         Rectangle{
             id:selectorRootRect
@@ -30,7 +30,7 @@ Rectangle {
             y: 0
             width: 219
             height: 480
-            color: "#90a4ae"
+            color: "#d1d9ff"
             border.width: 0
             Rectangle {
                 id: selectorRect
@@ -48,7 +48,7 @@ Rectangle {
 //                    y: 177
 //                    width: 187
 //                    height: 63
-//                    color: "#ffc400"
+//                    color: "#7986cb"
 //                    radius: 15
 //                    Text {
 //                        id: basicSantizeText
@@ -78,7 +78,7 @@ Rectangle {
 //                    y: 260
 //                    width: 187
 //                    height: 63
-//                    color: "#ffc400"
+//                    color: "#7986cb"
 //                    radius: 15
 
 //                    Text {
@@ -109,8 +109,10 @@ Rectangle {
                     y: 16
                     width: 187
                     height: 130
-                    color: "#ffc400"
+                    color: "#7986cb"
                     radius: 15
+                    border.color: "#aab6f3"
+                    border.width: 3
 
                     Text {
                         id: instructionText
@@ -118,7 +120,7 @@ Rectangle {
                         width: 187
                         height: 118
                         color: "#000000"
-                        text: qsTr("Select Mode")
+                        text: qsTr("Modes")
                         elide: Text.ElideNone
                         font.pixelSize: 35
                         horizontalAlignment: Text.AlignHCenter
@@ -142,12 +144,14 @@ Rectangle {
                             y: 378
                             width: 187
                             height: 53
-                            color: "#ffab00"
+                            color: "#b2fab4"
                             radius: 15
+                            border.width: 3
+                            border.color: "#519657"
 
                             Text {
                                 id: startText
-                                text: qsTr("Lets GO!!")
+                                text: qsTr("Let's GO!!")
                                 anchors.fill: parent
                                 font.pixelSize: 30
                                 horizontalAlignment: Text.AlignHCenter
@@ -177,7 +181,7 @@ Rectangle {
                     y: 158
                     width: 187
                     height: 224
-                    color: "#ffc400"
+                    color: "#aab6f3"
                     radius: 15
 
                     Rectangle {
@@ -186,8 +190,9 @@ Rectangle {
                         y: 8
                         width: 171
                         height: 99
-                        color: "#ffab00"
+                        color: "#7986cb"
                         radius: 15
+                        border.width: 2
 
                         Text {
                             id: text4
@@ -219,7 +224,7 @@ Rectangle {
 //                                y: parent.height / 2 - height / 2
 //                                radius: 15
 //                                color: "#000000"
-//                                border.color: noteuvcheck.down ? "#ffab00" : "#ffc400"
+//                                border.color: noteuvcheck.down ? "#aab6fe" : "#7986cb"
 
 //                                Rectangle {
 //                                    width: 14
@@ -227,7 +232,7 @@ Rectangle {
 //                                    x: 6
 //                                    y: 6
 //                                    radius: 15
-//                                    color: noteuvcheck.down ? "#ffab00" : "#ffc400"
+//                                    color: noteuvcheck.down ? "#aab6fe" : "#7986cb"
 //                                    visible: noteuvcheck.checked
 //                                }
 
@@ -253,17 +258,16 @@ Rectangle {
                                     x: noteuvcheck.leftPadding
                                     y: parent.height / 2 - height / 2
                                     radius: 13
-                                    color: noteuvcheck.checked ? "#ffc400" : "#ffffff"
-                                    border.color: noteuvcheck.checked ? "#000000" : "#cccccc"
-
+                                    border.color: "#000000"
+                                    color: noteuvcheck.checked ? "#7986cb" : "#ffffff"
                                     Rectangle {
                                         x: noteuvcheck.checked ? parent.width - width : 0
                                         width: 20
                                         height: 20
                                         radius: 13
-                                        color: noteuvcheck.checked ? "#e5b000" : "#ffffff"
+                                        color: noteuvcheck.checked ? "#474f8e" : "#ffffff"
                                         border.color: noteuvcheck.checked ?
-                                                          (noteuvcheck.down ? "#ffc400" : "#000000") : "#999999"
+                                                          (noteuvcheck.down ? "#7986cb" : "#000000") : "#999999"
                                     }
                                 }
 
@@ -296,7 +300,7 @@ Rectangle {
 //                                y: parent.height / 2 - height / 2
 //                                radius: 15
 //                                color: "#000000"
-//                                border.color: noteethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                border.color: noteethanolcheck.down ? "#aab6fe" : "#7986cb"
 
 //                                Rectangle {
 //                                    width: 14
@@ -304,7 +308,7 @@ Rectangle {
 //                                    x: 6
 //                                    y: 6
 //                                    radius: 15
-//                                    color: noteethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                    color: noteethanolcheck.down ? "#aab6fe" : "#7986cb"
 //                                    visible: noteethanolcheck.checked
 //                                }
 //                            }
@@ -328,17 +332,16 @@ Rectangle {
                                     x: noteethanolcheck.leftPadding
                                     y: parent.height / 2 - height / 2
                                     radius: 13
-                                    color: noteethanolcheck.checked ? "#ffc400" : "#ffffff"
-                                    border.color: noteethanolcheck.checked ? "#000000" : "#cccccc"
-
+                                    border.color: "#000000"
+                                    color: noteethanolcheck.checked ? "#7986cb" : "#ffffff"
                                     Rectangle {
                                         x: noteethanolcheck.checked ? parent.width - width : 0
                                         width: 20
                                         height: 20
                                         radius: 13
-                                        color: noteethanolcheck.checked ? "#e5b000" : "#ffffff"
+                                        color: noteethanolcheck.checked ? "#474f8e" : "#ffffff"
                                         border.color: noteethanolcheck.checked ?
-                                                          (noteethanolcheck.down ? "#ffc400" : "#000000") : "#999999"
+                                                          (noteethanolcheck.down ? "#7986cb" : "#000000") : "#999999"
                                     }
                                 }
 
@@ -353,15 +356,16 @@ Rectangle {
                                 }
                             }
                         }
-                    
+
                     Rectangle {
                         id: coinsantizieselect
                         x: 8
                         y: 113
                         width: 171
                         height: 99
-                        color: "#ffab00"
+                        color: "#7986cb"
                         radius: 15
+                        border.width: 2
                         Text {
                             id: text5
                             x: 8
@@ -391,7 +395,7 @@ Rectangle {
 //                                    y: parent.height / 2 - height / 2
 //                                    radius: 15
 //                                    color: "#000000"
-//                                    border.color: coinuvcheck.down ? "#ffab00" : "#ffc400"
+//                                    border.color: coinuvcheck.down ? "#aab6fe" : "#7986cb"
 
 //                                    Rectangle {
 //                                        width: 14
@@ -399,7 +403,7 @@ Rectangle {
 //                                        x: 6
 //                                        y: 6
 //                                        radius: 15
-//                                        color: coinuvcheck.down ? "#ffab00" : "#ffc400"
+//                                        color: coinuvcheck.down ? "#aab6fe" : "#7986cb"
 //                                        visible: coinuvcheck.checked
 //                                    }
 //                                }
@@ -423,17 +427,16 @@ Rectangle {
                                     x: coinuvcheck.leftPadding
                                     y: parent.height / 2 - height / 2
                                     radius: 13
-                                    color: coinuvcheck.checked ? "#ffc400" : "#ffffff"
-                                    border.color: coinuvcheck.checked ? "#000000" : "#cccccc"
-
+                                    border.width: 1
+                                    color: coinuvcheck.checked ? "#7986cb" : "#ffffff"
                                     Rectangle {
                                         x: coinuvcheck.checked ? parent.width - width : 0
                                         width: 20
                                         height: 20
                                         radius: 13
-                                        color: coinuvcheck.checked ? "#e5b000" : "#ffffff"
+                                        color: coinuvcheck.checked ? "#474f8e" : "#ffffff"
                                         border.color: coinuvcheck.checked ?
-                                                          (coinuvcheck.down ? "#ffc400" : "#000000") : "#999999"
+                                                          (coinuvcheck.down ? "#7986cb" : "#000000") : "#999999"
                                     }
                                 }
 
@@ -446,7 +449,7 @@ Rectangle {
 
                                     leftPadding: coinuvcheck.indicator.width + coinuvcheck.spacing
                                 }
-                            
+
                         }
 
 //                        CheckBox {
@@ -469,7 +472,7 @@ Rectangle {
 //                                y: parent.height / 2 - height / 2
 //                                radius: 15
 //                                color: "#000000"
-//                                border.color: coinethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                border.color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
 
 //                                Rectangle {
 //                                    width: 14
@@ -477,7 +480,7 @@ Rectangle {
 //                                    x: 6
 //                                    y: 6
 //                                    radius: 15
-//                                    color: coinethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                    color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
 //                                    visible: coinethanolcheck.checked
 //                                }
 //                            }
@@ -502,7 +505,7 @@ Rectangle {
 //                                y: parent.height / 2 - height / 2
 //                                radius: 15
 //                                color: "#000000"
-//                                border.color: coinethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                border.color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
 
 //                                Rectangle {
 //                                    width: 14
@@ -510,12 +513,12 @@ Rectangle {
 //                                    x: 6
 //                                    y: 6
 //                                    radius: 15
-//                                    color: coinethanolcheck.down ? "#ffab00" : "#ffc400"
+//                                    color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
 //                                    visible: coinethanolcheck.checked
 //                                }
 //                            }
 //                        }
-                        
+
                         Switch {
                             id: coinethanolcheck
                             x: 56
@@ -536,17 +539,17 @@ Rectangle {
                                     x: coinethanolcheck.leftPadding
                                     y: parent.height / 2 - height / 2
                                     radius: 13
-                                    color: coinethanolcheck.checked ? "#ffc400" : "#ffffff"
-                                    border.color: coinethanolcheck.checked ? "#000000" : "#cccccc"
+                                    border.color: "#000000"
+                                    color: coinethanolcheck.checked ? "#7986cb" : "#ffffff"
 
                                     Rectangle {
                                         x: coinethanolcheck.checked ? parent.width - width : 0
                                         width: 20
                                         height: 20
                                         radius: 13
-                                        color: coinethanolcheck.checked ? "#e5b000" : "#ffffff"
+                                        color: coinethanolcheck.checked ? "#474f8e" : "#ffffff"
                                         border.color: coinethanolcheck.checked ?
-                                                          (coinethanolcheck.down ? "#ffc400" : "#000000") : "#999999"
+                                                          (coinethanolcheck.down ? "#7986cb" : "#000000") : "#999999"
                                     }
                                 }
 
@@ -559,7 +562,7 @@ Rectangle {
 
                                     leftPadding: coinethanolcheck.indicator.width + coinethanolcheck.spacing
                                 }
-                            
+
                         }
                     }
                 }
@@ -572,7 +575,7 @@ Rectangle {
                 width: 203
                 height: 81
                 visible: true
-                color: "#fdfdfd"
+                color: "#000000"
                 text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\n</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:16pt;\">Tap on Select Method</span></p></body></html>"
                 font.pixelSize: 15
                 horizontalAlignment: Text.AlignHCenter
@@ -589,8 +592,18 @@ Rectangle {
             y: 13
             width: 567
             height: 459
-            color: "#000000"
             radius: 20
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#000000"
+                }
+
+                GradientStop {
+                    position: 1
+                    color: "#020202"
+                }
+            }
             border.color: "#000000"
             border.width: 0
 
@@ -601,13 +614,15 @@ Rectangle {
                 y: 386
                 width: 162
                 height: 55
-                color: "#ffc400"
+                color: "#7986cb"
                 radius: 15
+                border.color: "#aab6f3"
+                border.width: 3
 
                 Text {
                     id: text1
                     anchors.fill:parent
-                    text: qsTr("Select Method")
+                    text: qsTr("Select Mode")
                     font.pixelSize: 25
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -628,8 +643,10 @@ Rectangle {
                 y: 15
                 width: 535
                 height: 86
-                color: "#ffc400"
+                color: "#7986cb"
                 radius: 15
+                border.color: "#aab6f3"
+                border.width: 3
                 Text {
                 id: introText
                 anchors.fill:parent
@@ -650,26 +667,42 @@ Rectangle {
                 y: 112
                 width: 535
                 height: 260
-                color: "#ffc400"
+                color: "#aab6fe"
                 radius: 15
+                border.color: "#7986cb"
+                border.width: 3
 
-
-                Text {
-                    id: text3
+                Rectangle
+                {
                     x: 8
                     y: 167
                     width: 519
                     height: 85
+                    color: "#aab6fe"
+                    radius: 15
+                    border.width: 2
+
+                    Text {
+                    id: text3
+
                     text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\n</style></head><body style=\" font-family:'Titillium Web'; font-size:7pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro Black','Source Sans Pro'; font-size:14pt; font-weight:600;\">Note:</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro Black','Source Sans Pro'; font-size:14pt;\">Please Maintain 6 feet Social Distancing </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro Black','Source Sans Pro'; font-size:14pt;\">and wear Mask</span></p></body></html>"
-                    font.pixelSize: 12
+                    anchors.leftMargin: 6
+                    anchors.topMargin: 7
+                    anchors.fill: parent
+                    font.capitalization: Font.MixedCase
+                    font.family: "Times New Roman"
+                    font.pixelSize: 10
                     textFormat: Text.RichText
-                }
+                }}
 
                 Text {
                     id: text2
-                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\n</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:10pt; font-weight:600;\">Instructions:</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:10pt;\">1) Click on Select Method</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:10pt;\">2) Select Which type of method you want to use for Coins and Notes:</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:10pt;\">3) After you select any method tray box will open. </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:10pt;\">4) Put your currency in that and click OK</span></p></body></html>"
+                    text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\n</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:14pt; font-weight:600;\">Instructions:</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:14pt;\">1) Click on Select Method</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:14pt;\">2) Select Which type of method you want to use for <br>    Coins and Notes</span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:14pt;\">3) After you select any method tray box will open. </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Titillium Web','Source Sans Pro'; font-size:14pt;\">4) Put your currency in that and click OK</span></p></body></html>"
+                    font.pointSize: 6
+                    fontSizeMode: Text.FixedSize
+                    verticalAlignment: Text.AlignTop
+                    horizontalAlignment: Text.AlignLeft
                     anchors.fill:parent
-                    font.pixelSize: 20
                     font.family: "Source Sans Pro"
                     textFormat: Text.RichText
                     anchors.rightMargin: 6
@@ -822,3 +855,20 @@ Designer {
     D{i:0;formeditorZoom:1.100000023841858}D{i:43}D{i:45}
 }
 ##^##*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*##^## Designer {
+    D{i:40;anchors_height:85;anchors_width:519}D{i:43;anchors_height:85;anchors_width:519}
+}
+ ##^##*/

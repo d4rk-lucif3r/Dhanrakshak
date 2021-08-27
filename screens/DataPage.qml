@@ -63,7 +63,7 @@ Rectangle {
                     y: 8
                     width: 187
                     height: 50
-                    color: "#ffc400"
+                    color: "#7986cb"
                     radius: 15
                     Text {
                         id: text8
@@ -84,7 +84,7 @@ Rectangle {
                     y: 72
                     width: 187
                     height: 50
-                    color: "#ffab00"
+                    color: "#aab6fe"
                     radius: 15
                     Text {
                         id: text2
@@ -102,7 +102,7 @@ Rectangle {
                     y: 136
                     width: 187
                     height: 50
-                    color: "#ffc400"
+                    color: "#7986cb"
                     radius: 15
 
                     Text {
@@ -121,7 +121,7 @@ Rectangle {
                     y: 200
                     width: 187
                     height: 50
-                    color: "#ffab00"
+                    color: "#aab6fe"
                     radius: 15
 
                     Text {
@@ -140,7 +140,7 @@ Rectangle {
                     y: 264
                     width: 187
                     height: 50
-                    color: "#ffc400"
+                    color: "#7986cb"
                     radius: 15
 
                     Text {
@@ -159,7 +159,7 @@ Rectangle {
                     y: 328
                     width: 187
                     height: 50
-                    color: "#ffab00"
+                    color: "#aab6fe"
                     radius: 15
 
                     Text {
@@ -178,7 +178,7 @@ Rectangle {
                     y: 390
                     width: 187
                     height: 54
-                    color: "#ffc400"
+                    color: "#7986cb"
                     radius: 15
 
                     Text {
@@ -265,7 +265,7 @@ Rectangle {
                 anchors.leftMargin: 7
                 anchors.bottomMargin: 7
                 anchors.topMargin: 7
-                color: "#ffab00"
+                color: "#aab6fe"
                 radius: 15
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -312,7 +312,7 @@ Rectangle {
                 y: 13
                 width: 187
                 height: 50
-                color: "#ffc400"
+                color: "#7986cb"
                 radius: 15
 
                 Text {
@@ -332,7 +332,7 @@ Rectangle {
                 y: 69
                 width: 187
                 height: 50
-                color: "#ffab00"
+                color: "#aab6fe"
                 radius: 15
 
                 Text {
@@ -354,7 +354,7 @@ Rectangle {
                 y: 237
                 width: 187
                 height: 50
-                color: "#ffc400"
+                color: "#7986cb"
                 radius: 15
 
                 Text {
@@ -374,7 +374,7 @@ Rectangle {
                 y: 181
                 width: 187
                 height: 50
-                color: "#ffab00"
+                color: "#aab6fe"
                 radius: 15
 
                 Text {
@@ -394,7 +394,7 @@ Rectangle {
                 y: 125
                 width: 187
                 height: 50
-                color: "#ffc400"
+                color: "#7986cb"
                 radius: 15
 
                 Text {
@@ -413,7 +413,7 @@ Rectangle {
                 y: 295
                 width: 187
                 height: 93
-                color: "#ffab00"
+                color: "#aab6fe"
                 radius: 15
 
                 Text {
