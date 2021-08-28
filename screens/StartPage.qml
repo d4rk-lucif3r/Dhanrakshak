@@ -18,6 +18,7 @@ Rectangle {
     property bool noteisEthanol : false
     property bool coinisUV : false
     property bool coinisEthanol : false
+    property int count : 0;
     Rectangle{
         anchors.fill: parent
         id:pageRect
@@ -610,8 +611,8 @@ Rectangle {
 
             Rectangle {
                 id: startButton
-                x: 389
-                y: 386
+                x: 391
+                y: 391
                 width: 162
                 height: 55
                 color: "#7986cb"
@@ -629,14 +630,49 @@ Rectangle {
                     font.bold: false
                     font.family: "Source Sans Pro"
                 }
+
                 MouseArea{
                     anchors.fill: parent
                     onClicked: {
                         selectorRect.visible = true
                         initializeStartText.visible = false
+                        startButton2.visible = true
+                        startButton.visible = false
+
                     }}
             }
+            Rectangle {
+                id: startButton2
+                x: 390
+                y: 391
+                width: 162
+                height: 55
+                color: "#d32f2f"
+                radius: 15
+                visible: false
+                border.color: "#aab6f3"
+                border.width: 3
 
+                Text {
+                    id: text12
+                    anchors.fill:parent
+                    text: qsTr("Cancel")
+                    font.pixelSize: 25
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: false
+                    font.family: "Source Sans Pro"
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        selectorRect.visible = false
+                        initializeStartText.visible = true
+                        startButton.visible = true
+                        startButton2.visible = false
+                    }}
+            }
             Rectangle {
                 id: rectangle
                 x: 16
@@ -666,7 +702,7 @@ Rectangle {
                 x: 16
                 y: 112
                 width: 535
-                height: 260
+                height: 268
                 color: "#aab6fe"
                 radius: 15
                 border.color: "#7986cb"
@@ -675,7 +711,7 @@ Rectangle {
                 Rectangle
                 {
                     x: 8
-                    y: 167
+                    y: 175
                     width: 519
                     height: 85
                     color: "#aab6fe"
@@ -723,18 +759,18 @@ Rectangle {
         width:271
         height:135
         visible: false
-        color: "#ecc679"
+        color: "#0d47a1"
         radius: 15
-        border.color :'#000000'
-        border.width : 2
+        border.color :"#000000"
+        border.width : 3
 
         Rectangle {
             id: rectangle1
             x: 8
-            y: 38
+            y: 43
             width: 255
-            height: 51
-            color: "#999999"
+            height: 46
+            color: "#aab6fe"
             radius: 15
             border.color :'#000000'
             border.width : 2
@@ -743,7 +779,7 @@ Rectangle {
                 id: text6
                 text: qsTr("Put money in slots and click ok")
                 anchors.fill: parent
-                font.pixelSize: 15
+                font.pixelSize: 13
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
                 anchors.topMargin: 0
@@ -758,8 +794,18 @@ Rectangle {
             y: 95
             width: 120
             height: 32
-            color: "#de5454"
             radius: 15
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#fd8b82"
+                }
+
+                GradientStop {
+                    position: 1.4
+                    color: "#000000"
+                }
+            }
             border.color :'#000000'
             border.width : 2
 
@@ -787,8 +833,18 @@ Rectangle {
             y: 95
             width: 120
             height: 32
-            color: "#a5f17c"
             radius: 15
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#a5f17c"
+                }
+
+                GradientStop {
+                    position: 1.4
+                    color: "#000000"
+                }
+            }
             border.color :'#000000'
             border.width : 2
             Text {
@@ -814,14 +870,15 @@ Rectangle {
             x: 8
             y: 8
             width: 255
-            height: 24
-            color: "#999999"
+            height: 29
+            color: "#d6b404"
             radius: 15
             border.color: "#000000"
             border.width: 2
             Text {
                 id: text7
-                text: qsTr("Alert Needed!")
+                text: qsTr("ALERT!!!")
+                anchors.bottomMargin: 0
                 anchors.fill: parent
                 font.pixelSize: 15
                 horizontalAlignment: Text.AlignHCenter
@@ -868,7 +925,37 @@ Designer {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:40;anchors_height:85;anchors_width:519}D{i:43;anchors_height:85;anchors_width:519}
+    D{i:40;anchors_height:85;anchors_width:519}
 }
  ##^##*/

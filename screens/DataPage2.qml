@@ -5,6 +5,7 @@ import QtQuick.Dialogs 1.1
 Rectangle {
     width: 800
     height: 480
+    color: "#ffffff"
     radius: 15
     gradient: Gradient {
         GradientStop {
@@ -1025,6 +1026,9 @@ Rectangle {
                 }
             }
         }
+
+
+
         Rectangle{
             id : exitmessagealert
             x: 265
@@ -1032,7 +1036,7 @@ Rectangle {
             width:271
             height:135
             visible: false
-            color: "#ecc679"
+            color: "#0d47a1"
             radius: 15
             border.color :'#000000'
             border.width : 2
@@ -1043,7 +1047,7 @@ Rectangle {
                 y: 38
                 width: 255
                 height: 51
-                color: "#999999"
+                color: "#aab6fe"
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
@@ -1071,7 +1075,17 @@ Rectangle {
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#fd8b82"
+                    }
 
+                    GradientStop {
+                        position: 1.4
+                        color: "#000000"
+                    }
+                }
                 Text {
                     id: alertcanceltxt
                     text: qsTr("No")
@@ -1100,6 +1114,17 @@ Rectangle {
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#a5f17c"
+                    }
+
+                    GradientStop {
+                        position: 1.4
+                        color: "#000000"
+                    }
+                }
                 Text {
                     id: alertstarttext
                     text: qsTr("Yes")
@@ -1125,13 +1150,13 @@ Rectangle {
                 y: 8
                 width: 255
                 height: 24
-                color: "#999999"
+                color: "#d6b404"
                 radius: 15
                 border.color: "#000000"
                 border.width: 2
                 Text {
                     id: alertmsgheadtxt
-                    text: qsTr("Alert Needed!")
+                    text: qsTr("ALERT!!!")
                     anchors.fill: parent
                     font.pixelSize: 15
                     horizontalAlignment: Text.AlignHCenter
@@ -1185,7 +1210,7 @@ Rectangle {
 
 
                 }
-                border.color: "#ef5350"
+                border.color: "#000000"
                 border.width: 3
                 anchors.left: parent.left
                 anchors.right: parent.right
@@ -1197,16 +1222,19 @@ Rectangle {
                Text {
                     id: canceBtText
                     text: qsTr("STOP")
+                    anchors.rightMargin: 6
+                    anchors.leftMargin: 5
                     anchors.bottomMargin: 0
                     anchors.fill: parent
-                    font.pixelSize: 35
+                    font.pixelSize: 31
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     font.family: "Source Sans Pro "
                     font.bold: true
                }
 
-                MouseArea {
+               MouseArea {
+                   anchors.rightMargin: 0
                     anchors.fill: parent
                     anchors.bottomMargin: 0
                     onClicked: {
