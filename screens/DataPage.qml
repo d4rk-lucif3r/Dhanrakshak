@@ -5,13 +5,38 @@ import QtQuick.Dialogs 1.1
 Rectangle {
     width: 800
     height: 480
+    color: "#ffffff"
     radius: 15
+    gradient: Gradient {
+        GradientStop {
+            position: 0
+            color: "#ffffff"
+        }
+
+        GradientStop {
+            position: 0.895
+            color: "#ffffff"
+        }
+
+        GradientStop {
+            position: 1
+            color: "#ffffff"
+        }
+
+        GradientStop {
+            position: 1
+            color: "#000000"
+        }
+
+
+    }
     id: dataPageRoot
     objectName: "dataPageRootObj"
     property int progress: 0
     property int total: 0
 
     property int twoThNote: 0
+    property int oneThNote: 0
     property int fiveHunNote: 0
     property int twoHunNote: 0
     property int oneHunNote: 0
@@ -26,7 +51,7 @@ Rectangle {
     property int twoCoin: 0
     property int oneCoin: 0
 
-    
+
 
     Rectangle{
         anchors.fill: parent
@@ -39,180 +64,422 @@ Rectangle {
         radius: 0
 
         Rectangle{
-            id:selectorRootRect
-
-            x: 581
-            y: 0
-            width: 219
-            height: 480
-            color: "#90a4ae"
+            id:imgRect
+            x: 8
+            y: 15
+            width: 168
+            height: 391
+            radius: 15
             border.width: 0
-
-            Rectangle {
-                id: rectangle
-                x: 8
-                y: 8
-                width: 203
-                height: 464
-                color: "#0f0f0f"
-                radius: 15
-
-                Rectangle {
-                    id: rectangle1
-                    x: 8
-                    y: 8
-                    width: 187
-                    height: 50
-                    color: "#7986cb"
-                    radius: 15
-                    Text {
-                        id: text8
-                        text: qsTr("₹2000 Note/s"+" : "+twoThNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-
-
-                    }
+            border.color: "#ffffff"
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#154f73"
                 }
 
-                Rectangle {
-                    id: rectangle2
-                    x: 8
-                    y: 72
-                    width: 187
-                    height: 50
-                    color: "#aab6fe"
-                    radius: 15
-                    Text {
-                        id: text2
-                       text: qsTr("₹500 Note/s"+"   : "+fiveHunNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle3
-                    x: 8
-                    y: 136
-                    width: 187
-                    height: 50
-                    color: "#7986cb"
-                    radius: 15
-
-                    Text {
-                        id: text3
-                        text: qsTr("₹200 Note/s"+"   : "+twoHunNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle4
-                    x: 8
-                    y: 200
-                    width: 187
-                    height: 50
-                    color: "#aab6fe"
-                    radius: 15
-
-                    Text {
-                        id: text4
-                        text: qsTr("₹100 Note/s"+"   : "+oneHunNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle5
-                    x: 8
-                    y: 264
-                    width: 187
-                    height: 50
-                    color: "#7986cb"
-                    radius: 15
-
-                    Text {
-                        id: text5
-                        text: qsTr("₹50 Note/s"+"     : "+fiftyNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle6
-                    x: 8
-                    y: 328
-                    width: 187
-                    height: 50
-                    color: "#aab6fe"
-                    radius: 15
-
-                    Text {
-                        id: text6
-                        text: qsTr("₹20 Note/s"+"     : "+twentyNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-                    }
-                }
-
-                Rectangle {
-                    id: rectangle7
-                    x: 8
-                    y: 390
-                    width: 187
-                    height: 54
-                    color: "#7986cb"
-                    radius: 15
-
-                    Text {
-                        id: text7
-                        text: qsTr("₹10 Note/s"+"     : "+tenNote)
-                        anchors.fill: parent
-                        font.pixelSize: 16
-                        verticalAlignment: Text.AlignVCenter
-                        padding: 5
-
-
-                    }
+                GradientStop {
+                    position: 1
+                    color: "#000000"
                 }
             }
+
+
+
+
+
+
+
+
+
+            Rectangle {
+                id: rectangle10
+                x: 9
+                y: 62
+                width: 151
+                height: 60
+                color: "#7986cb"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#aab6fe"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text10
+                    text: qsTr("₹20")
+                    anchors.fill: parent
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    anchors.bottomMargin: 26
+                    anchors.rightMargin: 0
+                    padding: 5
+                }
+
+                Text {
+                    id: text38
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 73
+                    padding: 5
+                    anchors.topMargin: 25
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text39
+                    y: 42
+                    height: 50
+                    text: twentyCoin
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 73
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle11
+                x: 8
+                y: 128
+                width: 152
+                height: 60
+                color: "#aab6fe"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#aab6fe"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text11
+                    text: qsTr("₹10")
+                    anchors.fill: parent
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 26
+                }
+
+                Text {
+                    id: text40
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text41
+                    y: 42
+                    height: 50
+                    text: tenCoin
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 73
+                    anchors.rightMargin: 0
+                    padding: 5
+                    anchors.topMargin: 25
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+
+            }
+
+            Rectangle {
+                id: rectangle12
+                x: 8
+                y: 326
+                width: 152
+                height: 60
+                color: "#7986cb"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#aab6fe"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text14
+                    text: qsTr("₹1")
+                    anchors.fill: parent
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 26
+                }
+
+                Text {
+                    id: text46
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text47
+                    y: 42
+                    height: 50
+                    text: fiveCoin
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 73
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle13
+                x: 8
+                y: 260
+                width: 152
+                height: 60
+                color: "#aab6fe"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#aab6fe"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text13
+                    text: qsTr("₹2")
+                    anchors.fill: parent
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    anchors.rightMargin: 0
+                    padding: 5
+                    anchors.bottomMargin: 26
+                }
+
+                Text {
+                    id: text44
+                    y: 42
+                    height: 50
+                    text: fiveCoin
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 73
+                    anchors.rightMargin: 0
+                    padding: 5
+                    anchors.topMargin: 25
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text45
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 73
+                    padding: 5
+                    anchors.topMargin: 25
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle14
+                x: 8
+                y: 194
+                width: 152
+                height: 60
+                color: "#7986cb"
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#aab6fe"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text12
+                    text: qsTr("₹5")
+                    anchors.fill: parent
+                    font.pixelSize: 16
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 26
+                }
+
+                Text {
+                    id: text42
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text43
+                    y: 42
+                    height: 50
+                    text: fiveCoin
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 73
+                    anchors.topMargin: 25
+                    padding: 5
+                    anchors.rightMargin: 0
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
         }
 
         Rectangle {
             id: rectangle8
-            x: 8
-            y: 410
-            width: 358
-            height: 62
+            x: 0
+            y: 398
+            width: 660
+            height: 59
 
             color: "#0f0f0f"
             radius: 15
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#154f73"
+                }
 
+                GradientStop {
+                    position: 1
+                    color: "#000000"
+                }
+}
             ProgressBar {
-                id: progressBar1
-                height: 45
+                id: control
+                height: 25
+
+                anchors.bottomMargin: 8
                 anchors.fill: parent
-                anchors.rightMargin: 10
-                anchors.topMargin: 30
+                anchors.rightMargin: 15
+                anchors.leftMargin: 15
+                anchors.topMargin: 36
                 value: dataPageRoot.progress * .01
-                anchors.leftMargin: 10
+
+                background: Rectangle {
+                        implicitWidth: 200
+                        implicitHeight: 6
+                        color: "#e6e6e6"
+                        radius: 15
+                    }
+
+                contentItem: Item {
+                    anchors.fill: parent
+                        implicitWidth: 200
+                        implicitHeight: 6
+
+                        Rectangle {
+                            width: control.visualPosition * parent.width
+                            height: parent.height
+                            radius: 15
+                            color: "#17a81a"
+                        }
+                    }
+
             }
 
             Text {
@@ -220,12 +487,13 @@ Rectangle {
                anchors.fill:parent
                 color: "#fdfdfd"
                 text: qsTr(" Progress")
-                font.pixelSize: 18
+                font.bold: false
+                font.pixelSize: 23
                 horizontalAlignment: Text.AlignLeft
                 verticalAlignment: Text.AlignTop
                 anchors.leftMargin: 8
-                anchors.topMargin: 8
-                anchors.bottomMargin: 29
+                anchors.topMargin: 5
+                anchors.bottomMargin: 32
                 anchors.rightMargin: 181
 
 
@@ -251,234 +519,634 @@ Rectangle {
         }
 
         Rectangle {
-            id: cancelBtRoot
-            x: 372
-            y: 410
-            width: 203
-            height: 62
-            color: "#0f0f0f"
+            id: rectangle9
+            x: 175
+            y: 0
+            width: 485
+            height: 330
+            color: "#aa007f"
             radius: 15
+            border.width: 0
+            border.color: "#ffffff"
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#154f73"
+                }
+
+                GradientStop {
+                    position: 1
+                    color: "#000000"
+                }
+            }
 
             Rectangle {
-                id: cancelBt
-                anchors.rightMargin: 7
-                anchors.leftMargin: 7
-                anchors.bottomMargin: 7
-                anchors.topMargin: 7
-                color: "#aab6fe"
+                id: rectangle1
+                x: 9
+                y: 81
+                width: 152
+                height: 115
                 radius: 15
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.bottom: parent.bottom
-
-                Text {
-                    id: canceBtText
-                   anchors.fill:parent
-                    text: qsTr("Stop")
-                    font.pixelSize: 35
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    font.bold: false
-                    font.family: "Source Sans Pro "
-                }
-                MouseArea{
-                    anchors.fill: parent
-                    anchors.bottomMargin: 0
-                    onClicked:
-                    {
-                        //popup.open()
-                    //dataPageRoot.visible = false
-                    exitmessagealert.visible = true
-
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
                     }
 
-                }}
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                border.width: 3
+                border.color: "#c976f2"
+                Text {
+                    id: text8
+                    text: "₹2000"
+
+                    anchors.bottomMargin: 55
+                    font.bold: true
+                    textFormat: Text.RichText
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.rightMargin: 0
+                    padding: 5
+                }
+
+                Text {
+                    id: text18
+                    x: 76
+                    width: 76
+                    height: 54
+                    text: twoHunNote
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                    anchors.bottomMargin: 0
+                    anchors.leftMargin: 75
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: -2
+                }
+
+                Text {
+                    id: text31
+                    width: 76
+                    height: 50
+                    text: "Count :"
+                    styleColor: "#f25757"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.rightMargin: 73
+                    padding: 5
+                    anchors.topMargin: 46
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle2
+                x: 325
+                y: 81
+                width: 152
+                height: 115
+                color: "#7986cb"
+                radius: 15
+                border.color: '#dcd0ff'
+                border.width: 3
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text21
+                    height: 45
+                    text: "₹100"
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors.bottomMargin: 58
+                    textFormat: Text.RichText
+                    anchors.rightMargin: 0
+                    padding: 5
+                    font.bold: true
+                }
+
+                Text {
+                    id: text22
+                    x: 76
+                    width: 76
+                    height: 54
+                    text: oneHunNote
+
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 82
+                    anchors.topMargin: 48
+                    padding: 5
+                    anchors.rightMargin: -2
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text33
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle3
+                x: 8
+                y: 202
+                width: 152
+                height: 115
+                color: "#7986cb"
+                radius: 15
+                border.color: "#4af1f2"
+                border.width: 3
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text23
+                    height: 45
+                    text: "₹50"
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors.bottomMargin: 62
+                    padding: 5
+                    anchors.rightMargin: 0
+                    textFormat: Text.RichText
+                    font.bold: true
+                }
+
+                Text {
+                    id: text24
+                    x: 76
+                    y: 42
+                    width: 76
+                    height: 54
+                    text: fiftyNote
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 76
+                    anchors.rightMargin: -2
+                    padding: 5
+                    anchors.topMargin: 44
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text34
+                    y: 42
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle4
+                x: 167
+                y: 81
+                width: 152
+                height: 115
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                border.color: "#918e85"
+                border.width: 3
+
+                Text {
+                    id: text19
+                    height: 45
+                    text: "₹500"
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors.bottomMargin: 62
+                    padding: 5
+                    anchors.rightMargin: 0
+                    textFormat: Text.RichText
+                    font.bold: true
+                }
+
+                Text {
+                    id: text20
+                    x: 76
+                    width: 76
+                    height: 544
+                    text: fiveHunNote
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 77
+                    anchors.rightMargin: -2
+                    padding: 5
+                    anchors.topMargin: 44
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text32
+                    width: 76
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle5
+                x: 166
+                y: 202
+                width: 152
+                height: 115
+//                color: "#aab6fe"
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                radius: 15
+                border.color: "#adff2f"
+                border.width: 3
+
+                Text {
+                    id: text25
+                    height: 45
+                    text: "₹20"
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors.bottomMargin: 64
+                    textFormat: Text.RichText
+                    anchors.rightMargin: 0
+                    padding: 5
+                    font.bold: true
+                }
+
+                Text {
+                    id: text26
+                    x: 76
+                    width: 76
+                    height: 54
+                    text: twentyNote
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 78
+                    anchors.topMargin: 42
+                    padding: 5
+                    anchors.rightMargin: -2
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text35
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle6
+                x: 325
+                y: 202
+                width: 152
+                height: 115
+                color: "#7986cb"
+                radius: 15
+                border.color: "#805a46"
+                border.width: 3
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.283
+                        color: "#7986cb"
+                    }
+
+                    GradientStop {
+                        position: 1
+                        color: "#ffffff"
+                    }
+                }
+                Text {
+                    id: text27
+                    height: 45
+                    text: "₹10"
+                    anchors.fill: parent
+                    font.pixelSize: 20
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+
+                    anchors.bottomMargin: 64
+                    padding: 5
+                    anchors.rightMargin: 0
+                    textFormat: Text.RichText
+                    font.bold: true
+                }
+
+                Text {
+                    id: text28
+                    x: 76
+                    width: 76
+                    height: 54
+                    text: tenNote
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 77
+                    anchors.rightMargin: -2
+                    padding: 5
+                    anchors.topMargin: 42
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+
+                Text {
+                    id: text36
+                    height: 50
+                    text: "Count :"
+                    anchors.fill: parent
+                    font.pixelSize: 18
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    anchors.leftMargin: 0
+                    anchors.topMargin: 46
+                    padding: 5
+                    anchors.rightMargin: 73
+                    anchors.bottomMargin: 0
+                    font.bold: true
+                }
+            }
+
+            Rectangle {
+                id: rectangle
+                x: 8
+                y: 8
+                width: 467
+                height: 55
+                color: "#bdcaf9"
+                radius: 15
+                border.color :"#0b0101"
+                border.width : 2
+
+                Text {
+                    id: text17
+                    text: qsTr("Notes")
+                    anchors.bottomMargin: 8
+                    anchors.fill: parent
+                    font.pixelSize: 25
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.bold: true
+                }
+            }
+
 
         }
 
-        Rectangle {
-            id: rectangle9
-            x: 372
-            y: 8
-            width: 203
-            height: 396
-            color: "#0f0f0f"
-            radius: 15
-
             Rectangle {
-                id: rectangle10
+                id: rectangle16
                 x: 8
-                y: 13
-                width: 187
-                height: 50
-                color: "#7986cb"
+                y: 8
+                width: 152
+                height: 48
+                color: "#bdcaf9"
                 radius: 15
+                border.color: "#000000"
+                border.width: 2
 
                 Text {
-                    id: text10
-                    text: qsTr("₹20 Coin/s"+" : "+twentyCoin)
+                    id: text16
+                    text: qsTr("Coins")
+                    anchors.bottomMargin: 0
                     anchors.fill: parent
-                    font.pixelSize: 16
-                    horizontalAlignment: Text.AlignLeft
+                    font.pixelSize: 25
+                    horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    padding: 5
-                }
-            }
-
-            Rectangle {
-                id: rectangle11
-                x: 8
-                y: 69
-                width: 187
-                height: 50
-                color: "#aab6fe"
-                radius: 15
-
-                Text {
-                    id: text11
-                    text: qsTr("₹10 Coin/s"+" : "+tenCoin)
-                    anchors.fill: parent
-                    font.pixelSize: 16
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    padding: 5
-                }
-
-
-            }
-
-            Rectangle {
-                id: rectangle12
-                x: 8
-                y: 237
-                width: 187
-                height: 50
-                color: "#7986cb"
-                radius: 15
-
-                Text {
-                    id: text14
-                    text: qsTr("₹1  Coin/s"+" : "+oneCoin)
-                    anchors.fill: parent
-                    font.pixelSize: 16
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    padding: 5
-                }
-            }
-
-            Rectangle {
-                id: rectangle13
-                x: 8
-                y: 181
-                width: 187
-                height: 50
-                color: "#aab6fe"
-                radius: 15
-
-                Text {
-                    id: text13
-                    text: qsTr("₹2  Coin/s"+" : "+twoCoin)
-                    anchors.fill: parent
-                    font.pixelSize: 16
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    padding: 5
-                }
-            }
-
-            Rectangle {
-                id: rectangle14
-                x: 8
-                y: 125
-                width: 187
-                height: 50
-                color: "#7986cb"
-                radius: 15
-
-                Text {
-                    id: text12
-                    text: qsTr("₹5  Coin/s"+" : "+fiveCoin)
-                    anchors.fill: parent
-                    font.pixelSize: 16
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    padding: 5
-                }
-            }
-            Rectangle {
-                id: rectangle15
-                x: 8
-                y: 295
-                width: 187
-                height: 93
-                color: "#aab6fe"
-                radius: 15
-
-                Text {
-                    id: text15
-                    text: qsTr("Total Money : ₹ "+total)
-                    anchors.fill: parent
-                    font.pixelSize: 15
-                    horizontalAlignment: Text.AlignLeft
-                    verticalAlignment: Text.AlignVCenter
-                    font.bold: false
-                    font.family: "Verdana"
-                    padding: 5
+                    font.bold: true
                 }
             }
         }
         Rectangle{
-            id:imgRect
+        id : lowFluidLevelAlert
+        x:265
+        y:173
+        width:271
+        height:135
+        color: "#0d47a1"
+        radius: 15
+        visible: false
+        z: 1
+        border.color :'#000000'
+        border.width : 2
+        Rectangle {
+            id: lowFluidLevelAlertrect
             x: 8
             y: 8
-            width: 358
-            height: 261
-            color: "#0f0f0f"
+            width: 255
+            height: 37
+            color: "#f1d22d"
             radius: 15
-            Image {
-                id: image
-                anchors.fill:parent
-                source: "../imports/assets/corona_mask.png"
-                anchors.rightMargin: 9
-                anchors.leftMargin: 9
-                anchors.bottomMargin: 9
-                anchors.topMargin: 9
-                fillMode: Image.PreserveAspectFit
-
+            border.color: "#000000"
+            border.width: 2
+            Text {
+                id: lowFluidLevelAlerttxt
+                text: qsTr("ALERT!!!")
+                anchors.bottomMargin: 0
+                anchors.fill: parent
+                font.pixelSize: 15
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.topMargin: 0
+                font.family: "Source Sans Pro Black"
+                font.bold: true
             }
         }
-
         Rectangle {
-            id: rectangle16
+            id: lowFluidLevelAlertwarnrect
             x: 8
-            y: 275
-            width: 358
-            height: 129
-            color: "#0f0f0f"
+            y: 51
+            width: 255
+            height: 76
+            color: "#f64040"
             radius: 15
+            border.color :'#000000'
+            border.width : 2
 
             Text {
-                id: text16
-                color: "#fdfdfd"
-                text: "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\np, li { white-space: pre-wrap; }\n</style></head><body style=\" font-family:'Titillium Web'; font-size:7pt; font-weight:400; font-style:normal;\">\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro'; font-size:10pt;\">Earth is under the impact of Covid-19. </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro'; font-size:10pt;\">Help us to prevent its spread by </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro'; font-size:10pt;\">Wearing Masks, Using Hand Sanitizers and </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro'; font-size:10pt;\">Maintaining Social Distancing </span></p>\n<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:'Source Sans Pro'; font-size:10pt;\">Be a Hero not a Villain</span></p></body></html>"
+                id: lowFluidLevelAlertwarntxt
+                text: qsTr("Sanitizer Level Low")
                 anchors.fill: parent
-                font.pixelSize: 19
-                horizontalAlignment: Text.AlignLeft
-                verticalAlignment: Text.AlignTop
-                padding: 7
-                font.family: "Source Sans Pro"
-                wrapMode: Text.Wrap
-                anchors.rightMargin: 7
-                anchors.leftMargin: 7
-                anchors.bottomMargin: 7
-                anchors.topMargin: 7
-                textFormat: Text.RichText
-                font.weight: Font.Thin
-                font.bold: false
+                font.pixelSize: 17
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.topMargin: 0
+                font.family: "Source Sans Pro Black"
+                font.bold: true
+                MouseArea{}
             }
         }
+        }
+        Rectangle{
+        id : unlockmessagealert
+        x:265
+        y:173
+        width:271
+        height:135
+        color: "#0d47a1"
+        radius: 15
+        visible: false
+        z: 1
+        border.color :'#000000'
+        border.width : 2
+        Rectangle {
+            id: unlockmsgheadrect
+            x: 8
+            y: 8
+            width: 255
+            height: 46
+            color: "#f1d22d"
+            radius: 15
+            border.color: "#000000"
+            border.width: 2
+            Text {
+                id: unlockmsgheadtxt
+                text: qsTr("Sanitization Completed")
+                anchors.bottomMargin: 0
+                anchors.fill: parent
+                font.pixelSize: 15
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.topMargin: 0
+                font.family: "Source Sans Pro Black"
+                font.bold: true
+            }
+        }
+        Rectangle {
+            id: unlocktmsgrect
+            x: 8
+            y: 60
+            width: 255
+            height: 67
+            color: "#18de63"
+            radius: 15
+            border.color :'#000000'
+            border.width : 2
+
+            Text {
+                id: unlockmsgtxt
+                text: qsTr("Unlock Tray!!")
+                anchors.fill: parent
+                font.pixelSize: 15
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.topMargin: 0
+                font.family: "Source Sans Pro Black"
+                font.bold: true
+                MouseArea{}
+            }
+        }
+        }
+
         Rectangle{
             id : exitmessagealert
             x: 265
@@ -486,7 +1154,7 @@ Rectangle {
             width:271
             height:135
             visible: false
-            color: "#ecc679"
+            color: "#0d47a1"
             radius: 15
             border.color :'#000000'
             border.width : 2
@@ -497,7 +1165,7 @@ Rectangle {
                 y: 38
                 width: 255
                 height: 51
-                color: "#999999"
+                color: "#aab6fe"
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
@@ -525,7 +1193,17 @@ Rectangle {
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#fd8b82"
+                    }
 
+                    GradientStop {
+                        position: 1.4
+                        color: "#000000"
+                    }
+                }
                 Text {
                     id: alertcanceltxt
                     text: qsTr("No")
@@ -554,6 +1232,17 @@ Rectangle {
                 radius: 15
                 border.color :'#000000'
                 border.width : 2
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0
+                        color: "#a5f17c"
+                    }
+
+                    GradientStop {
+                        position: 1.4
+                        color: "#000000"
+                    }
+                }
                 Text {
                     id: alertstarttext
                     text: qsTr("Yes")
@@ -579,13 +1268,13 @@ Rectangle {
                 y: 8
                 width: 255
                 height: 24
-                color: "#999999"
+                color: "#d6b404"
                 radius: 15
                 border.color: "#000000"
                 border.width: 2
                 Text {
                     id: alertmsgheadtxt
-                    text: qsTr("Alert Needed!")
+                    text: qsTr("ALERT!!!")
                     anchors.fill: parent
                     font.pixelSize: 15
                     horizontalAlignment: Text.AlignHCenter
@@ -594,6 +1283,138 @@ Rectangle {
                     font.family: "Source Sans Pro Black"
                     font.bold: true
                 }
+            }
+        }
+
+        Rectangle {
+            id: cancelBtRoot
+            x: 680
+            y: 8
+            width: 112
+            height: 464
+            color: "#0f0f0f"
+            radius: 15
+            border.width: 0
+            border.color: "#ffffff"
+            gradient: Gradient {
+                GradientStop {
+                    position: 0
+                    color: "#154f73"
+                }
+
+                GradientStop {
+                    position: 1
+                    color: "#000000"
+                }
+            }
+            Rectangle {
+                id: cancelBt
+                radius: 15
+                gradient: Gradient {
+                    GradientStop {
+                        position: -.2
+                        color: "#000000"
+                    }
+                    GradientStop {
+                        position: 0.5
+                        color: "#ff867c"
+                    }
+
+                    GradientStop {
+                        position: 1.2
+
+                        color: "#000000"
+                    }
+
+
+                }
+                border.color: "#000000"
+                border.width: 3
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                anchors.leftMargin: 7
+                anchors.rightMargin: 7
+                anchors.topMargin: 7
+               Text {
+                    id: canceBtText
+                    text: qsTr("STOP")
+                    anchors.rightMargin: 6
+                    anchors.leftMargin: 5
+                    anchors.bottomMargin: 0
+                    anchors.fill: parent
+                    font.pixelSize: 31
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    font.family: "Source Sans Pro "
+                    font.bold: true
+               }
+
+               MouseArea {
+                   anchors.rightMargin: 0
+                    anchors.fill: parent
+                    anchors.bottomMargin: 0
+                    onClicked: {
+
+                    exitmessagealert.visible = true
+                    }
+                }
+                anchors.bottomMargin: 7
+            }
+        }
+
+        Rectangle {
+            id: rectangle15
+            x: 182
+            y: 346
+            width: 486
+            height: 60
+            color: "#7986cb"
+            radius: 15
+            border.color :"#000000"
+            border.width : 5
+            gradient: Gradient {
+                GradientStop {
+                    position: 0.283
+                    color: "#aab6fe"
+                }
+
+                GradientStop {
+                    position: 1
+                    color: "#ffffff"
+                }
+            }
+            Text {
+                id: text15
+                text: "Total Money"
+                anchors.fill: parent
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.leftMargin: 27
+                padding: 5
+                anchors.topMargin: 0
+                anchors.rightMargin: 287
+                anchors.bottomMargin: 0
+                font.family: "Source Sans Pro"
+                font.bold: true
+            }
+
+            Text {
+                id: text48
+                text: qsTr("₹ "+total)
+                anchors.fill: parent
+                font.pixelSize: 30
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                anchors.leftMargin: 342
+                anchors.rightMargin: 0
+                anchors.topMargin: 0
+                padding: 5
+                anchors.bottomMargin: 0
+                font.family: "Source Sans Pro"
+                font.bold: false
             }
         }
     }

@@ -18,12 +18,18 @@ Rectangle {
     property bool noteisEthanol : false
     property bool coinisUV : false
     property bool coinisEthanol : false
-    property int count : 0;
+    property int count : 0
+    property string pin_hint : 'Enter PIN to Shutdown'
+    property string pin : ''
+    property string asterisk : ''
+    property int shutCount: 0
     Rectangle{
         anchors.fill: parent
         id:pageRect
         color: "#d1d9ff"
         radius: 0
+
+
         Rectangle{
             id:selectorRootRect
 
@@ -33,12 +39,282 @@ Rectangle {
             height: 480
             color: "#d1d9ff"
             border.width: 0
-            Rectangle {
-                id: selectorRect
-                visible: false
+
+            Rectangle{
+                id:shutdownselectorroot
                 x: 8
                 y: 13
                 width: 203
+                height: 459
+                color: "#d1d9ff"
+
+                visible: false
+
+                Rectangle {
+                    id: pin_rect
+                    x: 3
+                    y: 67
+                    width: 200
+                    height: 53
+                    color: "#ffffff"
+                    radius: 15
+
+                    Text {
+                        id: pin_rect_txt
+                        color: startPageRoot.pin != '1258'?"#eb4934" :"#2cc75a"
+                        text: startPageRoot.pin_hint
+
+                        font.bold: true
+                        verticalAlignment: Text.AlignVCenter
+                        font.family: "Courier"
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.fill: parent
+                        font.pixelSize: 11
+                    }
+
+
+                }
+
+                Image {
+                    id: image
+                    x: 3
+                    y: 138
+                    width: 200
+                    height: 254
+                    sourceSize.width: -2
+                    source: "../assets/img/numpad1.jpg"
+                    fillMode: Image.PreserveAspectFit
+                    Timer{
+                        id: shutdownpinchecktimer
+                        running: true
+                        repeat: true
+                        interval:100
+                        onTriggered: {
+
+                            if((startPageRoot.pin != '')&&(startPageRoot.pin.length<=4))
+                            {
+                               pin_rect_txt.text = startPageRoot.asterisk
+                            }
+                            if (startPageRoot.pin.length == 4){
+                                if (startPageRoot.pin !='1258'){
+                                    startPageRoot.pin = ''
+                                    startPageRoot.asterisk =''
+                                    pin_rect_txt.text = 'Incorrect PIN'
+                                }
+
+                            }
+
+
+                        }
+
+                    }
+                    MouseArea {
+                        id: mouseArea_1
+                        x: 26
+                        y: 24
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='1'
+                                startPageRoot.asterisk+='*'
+                            }
+
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_2
+                        x: 81
+                        y: 24
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='2'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_3
+                        x: 137
+                        y: 24
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='3'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_4
+                        x: 26
+                        y: 82
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='4'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_5
+                        x: 81
+                        y: 82
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='5'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_6
+                        x: 137
+                        y: 82
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='6'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_7
+                        x: 26
+                        y: 134
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='7'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_8
+                        x: 81
+                        y: 134
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='8'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_9
+                        x: 137
+                        y: 134
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='9'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_asterisk
+                        x: 26
+                        y: 189
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='*'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+
+                    MouseArea {
+                        id: mouseArea_0
+                        x: 81
+                        y: 189
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='0'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+                    MouseArea {
+                        id: mouseArea_hashtag
+                        x: 137
+                        y: 189
+                        width: 39
+                        height: 41
+                        onClicked: {
+                            if (startPageRoot.pin.length<=4){
+                                startPageRoot.pin+='#'
+                                startPageRoot.asterisk+='*'
+                            }
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: rectangle6
+                    x: 3
+                    y: 398
+                    width: 200
+                    height: 53
+                    color: "#bf0d0d"
+                    radius: 15
+                    border.width: 3
+
+                    Text {
+                        id: element
+                        text: qsTr("Shutdown")
+                        font.bold: true
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        anchors.fill: parent
+                        font.pixelSize: 21
+                    }
+                    MouseArea{
+                        enabled: startPageRoot.pin == '1258' ? true : false
+                        anchors.fill: parent
+                        onClicked: {
+                            print('Shutting Down')
+                        }
+                    }
+
+                }
+
+
+
+            }
+            Rectangle {
+                id: selectorRect
+                visible: false
+                x: 0
+                y: 13
+                width: 211
                 height: 459
                 color: "#000000"
                 radius: 15
@@ -585,6 +861,35 @@ Rectangle {
                 textFormat: Text.RichText
                 font.family: "Source Sans Pro Black"
             }
+
+            Image {
+                id: shutdowncallbtn
+                x: 185
+                y: 8
+                width: 26
+                height: 31
+                z: 1
+                source: "../assets/img/shutdown.png"
+                fillMode: Image.PreserveAspectFit
+                MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if(startPageRoot.shutCount == 0){
+                    shutdownselectorroot.visible = true;
+                    initializeStartText.visible = false;
+                        startPageRoot.shutCount = 1;
+                        return
+                    }
+
+                    if(startPageRoot.shutCount == 1){
+                    shutdownselectorroot.visible = false;
+                    initializeStartText.visible = true;
+                        startPageRoot.shutCount = 0;
+                        return
+                    }
+                }
+                }
+            }
         }
 
         Rectangle {
@@ -622,6 +927,7 @@ Rectangle {
 
                 Text {
                     id: text1
+                    color: "#000000"
                     anchors.fill:parent
                     text: qsTr("Select Mode")
                     font.pixelSize: 25
@@ -955,7 +1261,99 @@ Designer {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*##^## Designer {
-    D{i:40;anchors_height:85;anchors_width:519}
+    D{i:22;anchors_x:89;anchors_y:20}
 }
  ##^##*/

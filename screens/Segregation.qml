@@ -26,7 +26,7 @@ ApplicationWindow
     }
     Component {
         id: second_page
-        DataPage2 {}
+        DataPage {}
     }
     function load_page(page) {
            switch (page) {
