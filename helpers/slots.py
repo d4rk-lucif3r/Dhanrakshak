@@ -1,5 +1,6 @@
 import random
 from threading import Thread
+import time
 
 from PySide2.QtCore import QObject, Slot
 
@@ -49,6 +50,12 @@ class ValUpdate(QObject):
         self.noteEthanol = recieved_object.property('noteisEthanol')
         self.coinUV = recieved_object.property('coinisUV')
         self.coinEthanol = recieved_object.property('coinisEthanol')
+        
+    @Slot(QObject)
+    def splashCheck(self,recieved_object):
+        if self.det_obj.sampleCheck:
+            recieved_object.setProperty('showSplash', True)
+    
 
     @Slot(QObject)
     def stop(self, recieved_object):

@@ -23,6 +23,7 @@ Rectangle {
     property string pin : ''
     property string asterisk : ''
     property int shutCount: 0
+    property bool showSplash: true
     Rectangle{
         anchors.fill: parent
         id:pageRect
@@ -944,6 +945,7 @@ Rectangle {
                         initializeStartText.visible = false
                         startButton2.visible = true
                         startButton.visible = false
+                        shutdowncallbtn.visible = false
 
                     }}
             }
@@ -977,6 +979,7 @@ Rectangle {
                         initializeStartText.visible = true
                         startButton.visible = true
                         startButton2.visible = false
+                        shutdowncallbtn.visible = true
                     }}
             }
             Rectangle {
@@ -1208,8 +1211,24 @@ Rectangle {
 
             }
     }
+    Timer{
+        id : splashTimer
+//        interval: 120000
+        interval: 500
+        running: true
+        onTriggered: {
+//            startPageRoot.showSplash = false
+            slot.splashCheck(startPageRoot)
+
+        }
 
 
+    }
+
+SplashScreen{
+id: splash
+visible: startPageRoot.showSplash
+}
 
 }
 
@@ -1218,6 +1237,16 @@ Designer {
     D{i:0;formeditorZoom:1.100000023841858}D{i:43}D{i:45}
 }
 ##^##*/
+
+
+
+
+
+
+
+
+
+
 
 
 

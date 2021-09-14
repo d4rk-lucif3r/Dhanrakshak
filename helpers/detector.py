@@ -32,15 +32,16 @@ class Detector:
                             key_size=12,
                             multi_probe_level=1)
         search_params = dict(checks=50)
+        self.sampleCheck = False
         # self.matcher = cv2.FlannBasedMatcher(index_params, search_params)
         self.matcher = cv2.DescriptorMatcher_create(
             cv2.DescriptorMatcher_BRUTEFORCE_HAMMING)
 
     def start(self):
-
         start = time.time()
         print('Started Sampling')
         self.getSampleData()
+        self.sampleCheck = True
         end = time.time()
         print('Done sampling :', end-start)
         self.videoCapture = Stream(src=0).start()
@@ -60,7 +61,7 @@ class Detector:
                 data.append([currencyTrainImage, (
                     self.kp, self.des)])
             self.cache[currencyValue] = data
-
+        
     def getFeatures(self, image):
         start = time.time()
         self.image = image
