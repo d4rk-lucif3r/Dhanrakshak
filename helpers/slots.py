@@ -1,3 +1,4 @@
+from multiprocessing import Process
 import random
 from threading import Thread
 import time
@@ -24,7 +25,7 @@ class ValUpdate(QObject):
         self.fivehund_list = []
         self.twothousand_list = []
         self.stopThread = True
-
+        self.detectThread = Process(target=self.startdetect)
         # self.detectThread = Thread(target=self.startdetect)
         # self.detectThread.start()
     @Slot()

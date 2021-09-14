@@ -9,14 +9,14 @@ class Relay:
         IO.setmode(IO.BCM)
         IO.setup(self.pin, IO.OUT)
     
-    def _on(self):
+    def on(self):
         """Turns relay on"""
         IO.output(self.pin, IO.HIGH)
-    def _off(self):
+    def off(self):
         """Turns relay off"""
         IO.output(self.pin, IO.LOW)
     
-    def ishigh(self):
+    def _ishigh(self):
         """Returns True if relay is on"""
         if IO.input(self.pin):
             return True
@@ -25,10 +25,10 @@ class Relay:
         
     def toggle(self):
         """Toggles relay"""
-        if self.ishigh():
-            self._off()
+        if self._ishigh():
+            self.off()
         else:
-            self._on()
+            self.on()
             
     def cleanup():
         """Cleans up GPIO"""
