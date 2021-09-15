@@ -6,3 +6,9 @@
 *.qtds*.
 *.qtds
 *.user
+
+# Misc
+*.cpyton
+*.c
+*.so
+*.o
