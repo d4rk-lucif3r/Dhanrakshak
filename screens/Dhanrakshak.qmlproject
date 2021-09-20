@@ -3,7 +3,7 @@
 import QmlProject 1.1
 
 Project {
-    mainFile: "Segregation.qml"
+    mainFile: "Dhanrakshak.qml"
 
     /* Include .qml, .js, and image files from current directory and subdirectories */
     QmlFiles {
@@ -38,5 +38,5 @@ Project {
     importPaths: [ "imports", "asset_imports" ]
 
     /* Required for deployment */
-    targetDirectory: "/opt/segregation"
+    targetDirectory: "/opt/dhanrakshak"
 }

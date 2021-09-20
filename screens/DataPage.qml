@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.10
 import QtQuick.Controls 2.1
 import QtQuick.Dialogs 1.1
 
@@ -1427,6 +1427,7 @@ Rectangle {
                 slot.noteUpdate(dataPageRoot)
                 slot.coinUpdate(dataPageRoot)
                 slot.progress(dataPageRoot)
+                slot.fluidCheck(lowFluidLevelAlertwarnrect)
             }
     }
 
