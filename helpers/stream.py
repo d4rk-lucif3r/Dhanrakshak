@@ -1,3 +1,5 @@
+#!python
+#cython: language_level=3
 from threading import Thread
 
 import cv2

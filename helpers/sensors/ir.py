@@ -1,3 +1,5 @@
+#!python
+#cython: language_level=3
 import RPi.GPIO as IO
 class Ir:
     """For IR Sensor """

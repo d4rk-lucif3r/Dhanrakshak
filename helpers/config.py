@@ -1,3 +1,6 @@
+#!python
+#cython: language_level=3
+
 # ESC
 CLOSE_KEY = 27
 
@@ -16,4 +19,69 @@ CURRENCY_CONT_THINKNESS = 3
 
 # Enabling this will result in the display of extra information like: the sum of all the matches
 # for each currency
-DEBUG = False
+DEBUG = True
+
+TEN_NOTE_STEPS = 80 #back
+TWEN_NOTE_STEPS = 80 #back
+FIFTY_NOTE_STEPS = 80 #back
+HUND_NOTE_STEPS = 470
+TWOHUND_NOTE_STEPS = 870
+FIVEHUND_NOTE_STEPS = 1270
+TWOTHOUSAND_NOTE_STEPS = 1670
+
+LINEAR_FLAP_STEPS = 10
+
+## GPIO Allotment
+
+### COIN
+IR_1_Rupee = 4
+IR_2_Rupees = 17
+IR_5_Rupees = 27
+IR_10_Rupees = 22
+IR_20_Rupees = 10
+
+IR_DISPENSE_TRAY = 8  # not final
+IR_INPUT_COIN = 11
+
+UV_1_COIN = 5
+UV_2_COIN = 6
+COIN_SPRAY = 13
+BLOWER_COIN_RELAY = 23
+
+
+COIN_FEEDER_ADDRESS = 0x60  #Feeders
+COIN_FEEDER_NUM = 1
+
+### Note
+UV_1_NOTE = 19
+UV_2_NOTE = 26
+NOTE_SPRAY = 0
+BLOWER_NOTE_RELAY = 24
+
+IR_INPUT_NOTE = 20
+
+
+CONVEYOR_MOTOR_ADDRESS = 0X62
+CONVEYOR_MOTOR_1_NUM = 1  # top
+CONVEYOR_MOTOR_2_NUM = 2  #bottom
+
+NOTE_FEEDER_ADDRESS = 0x60   # Feeders
+NOTE_FEEDER_NUM = 2
+
+NOTE_DISPENSE_MOTOR_ADDRESS = 0x61
+NOTE_DISPENSE_MOTOR_NUM = 1
+NOTE_DISPENSE_DROP_MOTOR_ADDRESS = 0x62
+NOTE_DISPENSE_DROP_MOTOR_NUM = 2  #M3
+
+LIMIT_SWITCH_LEFT = 1
+IR_SPARE_TRAY = 14  #not final
+
+### MISC
+LOCK_RELAY = 25
+LEVEL_SENSOR = 7
+TRAY_IR = 18
+BUZZER = 15
+
+
+## Offsets
+HOME_POSITION_OFFSET = 150

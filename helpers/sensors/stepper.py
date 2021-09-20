@@ -1,3 +1,5 @@
+#!python
+#cython: language_level=3
 from adafruit_motorkit import MotorKit
 from adafruit_motor import stepper
 import time

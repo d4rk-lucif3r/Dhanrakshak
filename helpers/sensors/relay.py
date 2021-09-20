@@ -1,3 +1,5 @@
+#!python
+#cython: language_level=3
 """Master Code for Controlling Relays"""
 import RPi.GPIO as IO
 import time
