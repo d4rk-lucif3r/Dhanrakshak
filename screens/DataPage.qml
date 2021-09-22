@@ -51,6 +51,8 @@ Rectangle {
     property int twoCoin: 0
     property int oneCoin: 0
 
+    property bool levelLow: false
+    property bool unlock: false
 
 
     Rectangle{
@@ -1034,7 +1036,7 @@ Rectangle {
         height:135
         color: "#0d47a1"
         radius: 15
-        visible: false
+        visible: dataPageRoot.levelLow
         z: 1
         border.color :'#000000'
         border.width : 2
@@ -1094,7 +1096,7 @@ Rectangle {
         height:135
         color: "#0d47a1"
         radius: 15
-        visible: false
+        visible: dataPageRoot.unlock
         z: 1
         border.color :'#000000'
         border.width : 2
