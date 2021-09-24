@@ -5,7 +5,6 @@ class LevelSensor():
     def __init__(self, pin):
         self.level = 0
         self.pin = pin
-        IO.setmode(IO.BCM)
         IO.setup(self.pin, IO.IN)
     def levelCheck(self):
         self.level = IO.input(self.pin)

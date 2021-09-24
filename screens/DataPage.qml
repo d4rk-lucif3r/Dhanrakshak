@@ -53,7 +53,7 @@ Rectangle {
 
     property bool levelLow: false
     property bool unlock: false
-
+    property bool unlockClick : false
 
     Rectangle{
         anchors.fill: parent
@@ -1144,7 +1144,13 @@ Rectangle {
                 anchors.topMargin: 0
                 font.family: "Source Sans Pro Black"
                 font.bold: true
-                MouseArea{}
+                MouseArea{
+                    anchors.fill:parent
+                    onClicked: {
+                        dataPageRoot.unlockClick = true;
+                        
+                         } 
+                }
             }
         }
         }
@@ -1430,6 +1436,7 @@ Rectangle {
                 slot.coinUpdate(dataPageRoot)
                 slot.progress(dataPageRoot)
                 slot.fluidCheck(lowFluidLevelAlertwarnrect)
+                slot.unlockTray(dataPageRoot);
             }
     }
 

@@ -5,19 +5,24 @@ import RPi.GPIO as IO
 import time
 
 class Relay:
-    def __init__(self, pin):
+    def __init__(self, pin, type = 1):
         """Takes pin number as input and Sets gpio to BCM and sets up gpio pin to out"""
         self.pin = pin
-        IO.setmode(IO.BCM)
+        self.type = type
         IO.setup(self.pin, IO.OUT)
     
     def on(self):
         """Turns relay on"""
-        IO.output(self.pin, IO.HIGH)
+        if self.type ==1:
+            IO.output(self.pin, IO.HIGH)
+        elif self.type == 2:
+            IO.output(self.pin, IO.LOW)
     def off(self):
         """Turns relay off"""
-        IO.output(self.pin, IO.LOW)
-    
+        if self.type == 1:
+            IO.output(self.pin, IO.LOW)
+        elif self.type == 2:
+    	    IO.output(self.pin, IO.HIGH)
     def _ishigh(self):
         """Returns True if relay is on"""
         if IO.input(self.pin):

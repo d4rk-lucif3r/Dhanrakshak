@@ -1213,12 +1213,12 @@ Rectangle {
     }
     Timer{
         id : splashTimer
-//        interval: 120000
+//        interval: 5000
         interval: 500
         running: true
         onTriggered: {
-//            startPageRoot.showSplash = false
-            slot.splashCheck(startPageRoot)
+          startPageRoot.showSplash = false
+        //    slot.splashCheck(startPageRoot)
 
         }
 

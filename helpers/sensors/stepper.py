@@ -8,6 +8,7 @@ import time
 class Stepper:
     def __init__(self, address):
         self.kit = MotorKit(address=address)
+        
 
     def move(self, steps, stepper_num, direction='Forward', style=stepper.DOUBLE):
         if direction == "Forward":
@@ -22,7 +23,16 @@ class Stepper:
         elif stepper_num == 2:
             for i in range(0, steps):
                 self.kit.stepper2.onestep(direction=direction, style=style)
-
+    def motor(self, motor_num, throttle):
+        if motor_num == 1:
+            self.kit.motor1.throttle = throttle
+        elif motor_num == 2:
+            self.kit.motor2.throttle = throttle
+        elif motor_num == 3:
+            self.kit.motor3.throttle = throttle
+        elif motor_num == 4:
+            self.kit.motor4.throttle = throttle
+    
     def deactivate(self, step_num):
         stepper_num = step_num
         if stepper_num == 1:

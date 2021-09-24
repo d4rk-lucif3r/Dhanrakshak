@@ -1,3 +1,5 @@
+#!python
+#cython: language_level=3
 import time
 from multiprocessing import Process
 
@@ -34,7 +36,7 @@ class CoinManager:
         self.feeder_motor = Stepper(COIN_FEEDER_ADDRESS)
 
         self.sprayProcess = Process(target=self.spray_coin)
-        self.coinProcess = Process(target=self.count_coin)
+        self.coinProcess = Process(target=self.result)
         self.feedProcess = Process(target=self.feed_coin)
 
     def check_input(self):
@@ -61,7 +63,7 @@ class CoinManager:
             time.sleep(.2)
             self.spray_relay.off()
 
-    def count_coin(self):
+    def result(self):
         self.checkpoint = 'count'
         self.progress = 30
         if self.one_coin.detect():
@@ -74,3 +76,13 @@ class CoinManager:
             self.ten_coin_count += 1
         if self.twenty_coin.detect():
             self.twenty_coin_count += 1
+        result = {
+            'one_coin': self.one_coin_count,
+            'two_coin': self.two_coin_count,
+            'five_coin': self.five_coin_count,
+            'ten_coin': self.ten_coin_count,
+            'twenty_coin': self.twenty_coin_count
+        }
+        self.progress = 100
+        self.checkpoint = 'final'
+        return result

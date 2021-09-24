@@ -16,7 +16,7 @@ def runQML():
     slot = Connection()
     engine = QQmlApplicationEngine()
     engine.rootContext().setContextProperty("slot", slot)
-    engine.load(QUrl.fromLocalFile('screens/Segregation.qml'))
+    engine.load(QUrl.fromLocalFile('screens/Dhanrakshak.qml'))
 
     if not engine.rootObjects():
         return -1
