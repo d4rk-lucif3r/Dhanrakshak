@@ -878,13 +878,15 @@ Rectangle {
                 onClicked: {
                     if(startPageRoot.shutCount == 0){
                     shutdownselectorroot.visible = true;
-                    initializeStartText.visible = false;
+                    startPageRoot.pin = ''
+                        initializeStartText.visible = false;
                         startPageRoot.shutCount = 1;
                         return
                     }
 
                     if(startPageRoot.shutCount == 1){
                     shutdownselectorroot.visible = false;
+                    startPageRoot.pin = ''
                     initializeStartText.visible = true;
                         startPageRoot.shutCount = 0;
                         return
@@ -1226,10 +1228,10 @@ Rectangle {
 
     }
 
-SplashScreen{
-id: splash
-visible: startPageRoot.showSplash
-}
+//SplashScreen{
+//id: splash
+//visible: startPageRoot.showSplash
+//}
 
 }
 
@@ -1238,6 +1240,8 @@ Designer {
     D{i:0;formeditorZoom:1.100000023841858}D{i:43}D{i:45}
 }
 ##^##*/
+
+
 
 
 
