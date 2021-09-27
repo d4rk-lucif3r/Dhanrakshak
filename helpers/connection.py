@@ -60,7 +60,7 @@ class Connection(QObject):
 
     @ Slot(QObject)
     def splashCheck(self, recieved_object):
-        if self.det_obj.sampleCheck:
+        if self.note_manager.run:
             recieved_object.setProperty('showSplash', True)
 
     @ Slot(QObject)
