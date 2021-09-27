@@ -302,6 +302,7 @@ Rectangle {
                         anchors.fill: parent
                         onClicked: {
                             print('Shutting Down')
+                            slot.shutdown()
                         }
                     }
 

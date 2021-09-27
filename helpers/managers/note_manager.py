@@ -1,8 +1,9 @@
 #!python
 #cython: language_level=3
 import time
+from multiprocessing import Process, Pool
 from threading import Thread
-
+import threading
 import RPi.GPIO as IO
 from helpers.config import *
 from helpers.detector import Detector
@@ -10,21 +11,32 @@ from helpers.sensors.ir import Ir
 from helpers.sensors.limitswitch import LimitSwitch
 from helpers.sensors.relay import Relay
 from helpers.sensors.stepper import Stepper
+import os
+# from multiprocessing import set_start_method
+# set_start_method("spawn")
 
 
 class NoteManager:
     def __init__(self):
+
+        self.stop_detect_thread = False
+        self.spray_stop_thread = False
+        self.stop_thread = False
+
         self.note_detector = Detector()
 
         self.input_ir = Ir(IR_INPUT_NOTE)
         self.dispense_ir = Ir(IR_DISPENSE_TRAY)
         self.conveyor_ir = Ir(IR_CONVEYOR)
 
-        self.limit_switch = LimitSwitch(LIMIT_SWITCH_DISPENSE)
-
+        self.limit_switch = LimitSwitch(LIMIT_SWITCH_DISPENSE)\
+            
+        self.lock_relay = Relay(LOCK_RELAY, type=2)
         self.uv1_relay = Relay(UV_1_NOTE)
         self.spray_relay = Relay(NOTE_SPRAY, type=2)
         self.valve = Relay(NOTE_VALVE, type=2)
+        self.blower = Relay(BLOWER_NOTE_RELAY, type=2)
+        self.light = Relay(LIGHT, type=2)
 
         self.progress = 0
         self.ten_note_count = 0
@@ -37,45 +49,49 @@ class NoteManager:
 
         self.feeder_stepper = Stepper(NOTE_FEEDER_ADDRESS)
         self.conveyor_stepper_1 = Stepper(CONVEYOR_MOTOR_ADDRESS)
-        self.conveyor_stepper_1 = Stepper(CONVEYOR_MOTOR_ADDRESS)
+        self.conveyor_stepper_2 = Stepper(CONVEYOR_MOTOR_ADDRESS)
         self.dispense = Stepper(NOTE_DISPENSE_MOTOR_ADDRESS)
 
         self.calibrate()
+        self.feed_process = None
+        self.conveyor_stepper_1_process = None
+        self.conveyor_stepper_2_process = None
+        self.spray_thread = None
+        self.sync_process = None
+        self.result_dict = {}
 
-        self.uv_thread = Thread(target=self.uv)
-        self.feed_thread = Thread(target=self.feed_note)
-        self.conveyor_stepper_1_thread = Thread(
-            target=self.conveyor_run, args=[CONVEYOR_MOTOR_1_NUM])
-        self.conveyor_stepper_1_thread = Thread(
-            target=self.conveyor_run, args=[CONVEYOR_MOTOR_2_NUM])
-        # self.sync_thread = Thread(
-        #     target=self.syncDispenseTray
-        # )
-        self.sprayProcess = Thread(
-            target=self.spray_note)
-        self.checkpoint = 'start'
-        self.feed_thread.start()
-        self.conveyor_stepper_1_thread.start()
-        self.conveyor_stepper_1_thread.start()
-        # self.sync_thread.start()
-        # self.uv_thread.start()
-        self.sprayProcess.start()
-        self.detect_thread = Thread(
-            target=self.detect_note)
+        self.count = 0
 
-        self.detect_thread.start()
-        self.accPoints = 35
-        self.currency = '20'
-
-    def start(self):
+    def start(self, is_uv, is_ethanol):
         try:
-            if self.input_ir.detect():
-                # self.feed_thread.join()
-                # self.conveyor_stepper_1_thread.join()
-                # self.conveyor_stepper_1_thread.join()
-                self.progress = 10
-                # self.detect_thread.join()
-                # self.sprayProcess.join()
+            self.progress = 0
+            self.result_dict = {}
+            self.is_uv = is_uv
+            self.is_ethanol = is_ethanol
+            print('[UV-rec]', is_uv)
+            print('[Ethanol-rec]', is_ethanol)
+            if self.count == 0:
+                self.light.on()
+                self.stop_thread = False
+                self.spray_stop_thread = False
+                self.feed_process = Process(target=self.feed_note, daemon=True)
+                self.feed_process.start()
+                self.conveyor_stepper_1_process = Process(
+                    target=self.conveyor_run1, daemon=True)
+                self.conveyor_stepper_1_process.start()
+                self.conveyor_stepper_2_process = Process(
+                    target=self.conveyor_run2, daemon=True)
+                self.conveyor_stepper_2_process.start()
+                self.sync_process = Process(
+                    target=self.sync_dispenseTray, daemon=True)
+                self.sync_process.start()
+                if self.is_ethanol:
+                    self.blower.on()
+                    self.spray_thread = Thread(
+                        target=self.spray_note)
+                    self.spray_thread.start()
+
+                self.count = 1
                 self.progress = 20
         except KeyboardInterrupt:
             self.stop()
@@ -87,105 +103,153 @@ class NoteManager:
             lim = self.limit_switch.checkTrigger()
             if not lim:
                 time.sleep(.2)
-                self.dispense.move(130, 1, direction='Backward')
+                self.dispense.move(HOME_POSITION_OFFSET,
+                                   1, direction='Backward')
                 self.dispense.deactivate(1)
 
     def feed_note(self):
+        
         while True:
+            # print('[DEBUG] Feeder Running :', os.getpid())
             if self.input_ir.detect():
-                self.feeder_stepper.move(700, NOTE_FEEDER_NUM)
-                self.feeder_stepper.deactivate(NOTE_FEEDER_NUM)
-                self.checkpoint = 'sanitise'
-                time.sleep(.2)
+                if not self.dispense_ir.detect():
+                    self.lock_relay.off()
+                    if self.is_uv:
+                        self.uv1_relay.on()
+                    if self.is_ethanol:
+                        self.blower.on()
+                    self.progress = 10
+                    self.feeder_stepper.move(700, NOTE_FEEDER_NUM)
+                    self.feeder_stepper.deactivate(NOTE_FEEDER_NUM)
+            if self.stop_thread:
+                break
+            time.sleep(1)
 
-    def conveyor_run(self, num):
+    def conveyor_run1(self):
         while True:
+            # print('[DEBUG] Running 1st Conveyor :', os.getpid())
+            if self.input_ir.detect():
+                # while not self.dispense_ir.detect():
+                time.sleep(.3)
+                self.conveyor_stepper_1.move(
+                    3600, CONVEYOR_MOTOR_1_NUM, direction='Backward')
+                self.conveyor_stepper_1.deactivate(CONVEYOR_MOTOR_1_NUM)
+            if self.conveyor_ir.detect():
+                time.sleep(2)
+                self.conveyor_stepper_1.deactivate(CONVEYOR_MOTOR_1_NUM)
+                time.sleep(1)
+            if self.stop_thread:
+                break
+
+    def conveyor_run2(self):
+        while True:
+            # print('[DEBUG] Running 2nd Conveyor:', os.getpid())
             if self.input_ir.detect():
                 time.sleep(.3)
-                if num == CONVEYOR_MOTOR_1_NUM:
-                    conveyor_motor = self.conveyor_stepper_1
-                    conveyor_motor.move(2800, num, direction='Backward')
-                    conveyor_motor.deactivate(num)
-                elif num == CONVEYOR_MOTOR_2_NUM:
-                    conveyor_motor = self.conveyor_stepper_1
-                    conveyor_motor.move(2800, num, direction='Forward')
-                    conveyor_motor.deactivate(num)
+                self.progress = 30
+                self.conveyor_stepper_2.move(
+                    3600, CONVEYOR_MOTOR_2_NUM, direction='Forward')
+                self.conveyor_stepper_2.deactivate(CONVEYOR_MOTOR_2_NUM)
+            if self.conveyor_ir.detect():
+                time.sleep(3)
+                self.progress = 50
+                self.conveyor_stepper_2.deactivate(CONVEYOR_MOTOR_2_NUM)
+            if self.stop_thread:
+                break
+            time.sleep(1)
 
-    # def syncDispenseTray(self):
-    #     while self.checkpoint!='detect':
-    #         if self.conveyor_ir.detect():
-    #             print('conveyor')
-    #             if not self.dispense_ir.detect():
-    #                 print('dispensor ir')
-    #                 self.dispense.motor(3,.3)
-    #         if self.dispense_ir.detect():
-    #                 time.sleep(.3)
-    #                 self.dispense.motor(3,0)
-
-    def uv(self):
+    def sync_dispenseTray(self):
+        # print('[DEBUG] Running Sync', os.getpid())
+        sync = 0
         while True:
-            if self.input_ir.detect():
-                self.uv1_relay.on()
-            # if self.conveyor_ir.detect():
-                time.sleep(45)
-                self.uv1_relay.off()
+            if self.conveyor_ir.detect():
+                if self.is_uv:
+                    self.uv1_relay.off()
+
+                self.dispense.motor(3, .7)
+                sync = 0
+            if sync == 0:
+                if self.dispense_ir.detect():
+                    time.sleep(3)
+                    self.dispense.motor(3, 0)
+                    sync = 1
+            if self.stop_thread:
+                break
 
     def spray_note(self):
         while True:
+            # print('[DEBUG] Running Spray :', os.getpid())
             if self.input_ir.detect():
                 self.valve.on()
-                time.sleep(.5)
+                time.sleep(1)
                 self.spray_relay.on()
                 time.sleep(1)
                 self.spray_relay.off()
                 self.valve.off()
+                time.sleep(.3)
+                self.valve.on()
+                time.sleep(1)
+                self.spray_relay.on()
+                time.sleep(1)
+                self.spray_relay.off()
+                self.valve.off()
+            if self.spray_stop_thread:
+                break
+            time.sleep(2)
 
     def detect_note(self):
+        run = 0
         while True:
-            if self.dispense_ir.detect():
-                print('[IR]')
-                self.note_detector.detect()
-                self.currency = self.note_detector.max_currency
-                self.note_detector.clear()
-                print('[Currency] ', self.currency)
-                if self.currency != '0':
-                    self.checkpoint = 'detect'
+            try:
+                if self.conveyor_ir.detect():
+                    run = 1
+                    self.progress = 50
+                    time.sleep(7)
+                if self.dispense_ir.detect() and run == 1:
+                    run = 0
+                    self.progress = 80
+                    print('[IR]')
+                    self.note_detector.detect()
+                    self.currency = self.note_detector.max_currency
+                    self.note_detector.clear()
+                    print('[Currency] ', self.currency)
+                    # if self.currency != '0':
                     if self.currency == '10':
                         self.ten_note_count += 1
                         self.dispense.move(
                             TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '20':
                         self.twenty_note_count += 1
                         self.dispense.move(
                             TWEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             TWEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '50':
                         self.fifty_note_count += 1
                         self.dispense.move(
                             FIFTY_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             FIFTY_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '100':
                         print('[Moving 100]')
                         self.hund_note_count += 1
@@ -193,52 +257,73 @@ class NoteManager:
                             HUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             HUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '200':
                         self.twohund_note_count += 1
                         self.dispense.move(
                             TWOHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             TWOHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '500':
                         self.fivehund_note_count += 1
                         self.dispense.move(
                             FIVEHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             FIVEHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
                     elif self.currency == '2000':
                         self.twothousand_note_count += 1
                         self.dispense.move(
                             TWOTHOUSAND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         time.sleep(1)
                         self.dispense.motor(3, .8)
-                        time.sleep(4)
+                        time.sleep(6)
                         self.dispense.motor(3, 0)
                         self.dispense.move(
                             TWOTHOUSAND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        self.currency = '0'
+                        
+                    elif self.currency == '0':
+                        self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
+                        self.dispense.move(
+                            TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
+                        time.sleep(1)
+                        self.dispense.motor(3, .8)
+                        time.sleep(6)
+                        self.dispense.motor(3, 0)
+                        self.dispense.move(
+                            TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
+                        self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
+                        
                     self.progress = 100
+                        
+                    if self.is_ethanol:
+                        self.blower.off()
+
+                if self.stop_detect_thread:
+                    print('[Killed Detect Thread]')
+                    break
+            except KeyboardInterrupt:
+                break
 
     def result(self):
-        resultDict = {
+        self.result_dict = {
             'ten': self.ten_note_count,
             'twenty': self.twenty_note_count,
             'fifty': self.fifty_note_count,
@@ -248,27 +333,44 @@ class NoteManager:
             'twothousand': self.twothousand_note_count,
             'progress': self.progress
         }
-        return resultDict
+        return self.result_dict
 
     def stop(self):
+        if self.is_ethanol:
+            self.spray_stop_thread = True
+            if self.spray_thread.is_alive():
+                self.spray_thread.join()
+
+        self.valve.off()
+        self.spray_relay.off()
+        self.uv1_relay.off()
+        self.light.off()
+        self.result_dict = {}
         self.feeder_stepper.deactivate(1)
         self.feeder_stepper.deactivate(2)
         self.conveyor_stepper_1.deactivate(1)
         self.conveyor_stepper_1.deactivate(2)
-        self.conveyor_stepper_1.deactivate(1)
-        self.conveyor_stepper_1.deactivate(2)
+        self.conveyor_stepper_2.deactivate(1)
+        self.conveyor_stepper_2.deactivate(2)
         self.dispense.deactivate(1)
         self.dispense.motor(3, 0)
-
-        self.conveyor_stepper_1_thread.terminate()
-        self.conveyor_stepper_1_thread.terminate()
-        self.feed_thread.terminate()
-        self.detect_thread.terminate()
-
-        self.valve.off()
-        self.spray_relay.off()
-        self.uv_thread.terminate()
-        self.uv1_relay.off()
-
-        self.note_detector.stop()
-        IO.cleanup()
+        self.conveyor_stepper_1_process.terminate()
+        self.conveyor_stepper_2_process.terminate()
+        self.feed_process.terminate()
+        self.stop_thread = True
+        self.feed_process.join()
+        self.conveyor_stepper_1_process.join()
+        self.conveyor_stepper_2_process.join()
+        self.feed_process.close()
+        self.conveyor_stepper_1_process.close()
+        self.conveyor_stepper_2_process.close()
+        self.count = 0
+        self.ten_note_count   = 0
+        self.twenty_note_count = 0
+        self.fifty_note_count = 0
+        self.hund_note_count = 0
+        self.twohund_note_count = 0
+        self.fivehund_note_count = 0
+        self.twothousand_note_count = 0
+        self.progress = 0
+        print('Cleaned')

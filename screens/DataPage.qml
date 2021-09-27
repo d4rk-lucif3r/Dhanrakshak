@@ -988,7 +988,7 @@ Rectangle {
                 color: "#bdcaf9"
                 radius: 15
                 border.color :"#0b0101"
-                border.width : 2
+                border.width : 3
 
                 Text {
                     id: text17
@@ -1088,72 +1088,66 @@ Rectangle {
             }
         }
         }
-        Rectangle{
-        id : unlockmessagealert
-        x:265
-        y:173
-        width:271
-        height:135
-        color: "#0d47a1"
-        radius: 15
-        visible: dataPageRoot.unlock
-        z: 1
-        border.color :'#000000'
-        border.width : 2
-        Rectangle {
-            id: unlockmsgheadrect
-            x: 8
-            y: 8
-            width: 255
-            height: 46
-            color: "#f1d22d"
-            radius: 15
-            border.color: "#000000"
-            border.width: 2
-            Text {
-                id: unlockmsgheadtxt
-                text: qsTr("Sanitization Completed")
-                anchors.bottomMargin: 0
-                anchors.fill: parent
-                font.pixelSize: 15
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                anchors.topMargin: 0
-                font.family: "Source Sans Pro Black"
-                font.bold: true
-            }
-        }
-        Rectangle {
-            id: unlocktmsgrect
-            x: 8
-            y: 60
-            width: 255
-            height: 67
-            color: "#18de63"
-            radius: 15
-            border.color :'#000000'
-            border.width : 2
-
-            Text {
-                id: unlockmsgtxt
-                text: qsTr("Unlock Tray!!")
-                anchors.fill: parent
-                font.pixelSize: 15
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                anchors.topMargin: 0
-                font.family: "Source Sans Pro Black"
-                font.bold: true
-                MouseArea{
-                    anchors.fill:parent
-                    onClicked: {
-                        dataPageRoot.unlockClick = true;
-                        
-                         } 
-                }
-            }
-        }
-        }
+//        Rectangle{
+//        id : unlockmessagealert
+//        x:265
+//        y:173
+//        width:271
+//        height:135
+//        color: "#0d47a1"
+//        radius: 15
+//        visible: dataPageRoot.unlock
+//        z: 1
+//        border.color :'#000000'
+//        border.width : 2
+//        Rectangle {
+//            id: unlockmsgheadrect
+//            x: 8
+//            y: 8
+//            width: 255
+//            height: 46
+//            color: "#f1d22d"
+//            radius: 15
+//            border.color: "#000000"
+//            border.width: 2
+//            Text {
+//                id: unlockmsgheadtxt
+//                text: qsTr("Sanitization Completed")
+//                anchors.bottomMargin: 0
+//                anchors.fill: parent
+//                font.pixelSize: 15
+//                horizontalAlignment: Text.AlignHCenter
+//                verticalAlignment: Text.AlignVCenter
+//                anchors.topMargin: 0
+//                font.family: "Source Sans Pro Black"
+//                font.bold: true
+//            }
+//        }
+//        Rectangle {
+//            id: unlocktmsgrect
+//            x: 8
+//            y: 60
+//            width: 255
+//            height: 67
+//            color: "#18de63"
+//            radius: 15
+//            border.color :'#000000'
+//            border.width : 2
+//
+//            Text {
+//                id: unlockmsgtxt
+//                text: qsTr("Unlock Tray!!")
+//                anchors.fill: parent
+//                font.pixelSize: 15
+//                horizontalAlignment: Text.AlignHCenter
+//                verticalAlignment: Text.AlignVCenter
+//                anchors.topMargin: 0
+//                font.family: "Source Sans Pro Black"
+//                font.bold: true
+//                MouseArea{}
+//            }
+//        }
+      }
 
         Rectangle{
             id : exitmessagealert
@@ -1263,7 +1257,7 @@ Rectangle {
                 MouseArea{
                 anchors.fill:parent
                 onClicked: {
-                    slot.stop(timer)
+                    slot.stop(timer, dataPageRoot)
                     load_page('Page 1')
 
                 }
@@ -1344,8 +1338,8 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.leftMargin: 7
                 anchors.rightMargin: 7
-                anchors.topMargin: 7
-               Text {
+                anchors.topMargin: 142
+                Text {
                     id: canceBtText
                     text: qsTr("STOP")
                     anchors.rightMargin: 6
@@ -1357,25 +1351,76 @@ Rectangle {
                     verticalAlignment: Text.AlignVCenter
                     font.family: "Source Sans Pro "
                     font.bold: true
-               }
-
-               MouseArea {
-                   anchors.rightMargin: 0
+                }
+                
+                MouseArea {
+                    rotation: 0
+                    anchors.rightMargin: 0
                     anchors.fill: parent
                     anchors.bottomMargin: 0
                     onClicked: {
-
-                    exitmessagealert.visible = true
+                        
+                        exitmessagealert.visible = true
                     }
                 }
                 anchors.bottomMargin: 7
+            }
+            
+            Rectangle {
+                id: rectangle7
+                x: 9
+                y: 9
+                width: 96
+                height: 127
+                radius: 15
+                border.width: 3
+                gradient: Gradient {
+                    GradientStop {
+                        position: 0.547
+                        color: "#1b9177"
+                    }
+                    
+                    GradientStop {
+                        position: 0.045
+                        color: "#1b9177"
+                    }
+                    
+                    GradientStop {
+                        position: 1.3
+                        color: "#000000"
+                    }
+                    
+                    
+                }
+                
+                Text {
+                    id: element
+                    color: "#000000"
+                    text: qsTr("Unlock")
+                    styleColor: "#090909"
+                    anchors.rightMargin: 2
+                    anchors.leftMargin: 2
+                    font.bold: true
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    anchors.fill: parent
+                    font.pixelSize: 22
+                    MouseArea{                    
+                    anchors.fill:parent
+                    onClicked: {
+                        if (dataPageRoot.unlock){
+                        dataPageRoot.unlockClick = true;
+                        print('clicked')
+                        }
+                        }
+                }
             }
         }
 
         Rectangle {
             id: rectangle15
-            x: 182
-            y: 346
+            x: -498
+            y: 341
             width: 486
             height: 60
             color: "#7986cb"
@@ -1434,7 +1479,8 @@ Rectangle {
             onTriggered: {
                 slot.noteUpdate(dataPageRoot)
                 slot.coinUpdate(dataPageRoot)
-                slot.progress(dataPageRoot)
+                slot.progress_update(dataPageRoot)
+                slot.sum_update(dataPageRoot)
                 slot.fluidCheck(lowFluidLevelAlertwarnrect)
                 slot.unlockTray(dataPageRoot);
             }

@@ -31,8 +31,8 @@ class Detector:
                 self.start()
                 print('[DETECTING]')
                 start = time.time()
-                for i in range(0, 7):
-                    _, self.frame = self.videoCapture.read()
+                for i in range(0, 10):
+                    _, self.frame= self.videoCapture.read()
                     
                     self.frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
                     self.image = Image.fromarray(self.frame, 'RGB')

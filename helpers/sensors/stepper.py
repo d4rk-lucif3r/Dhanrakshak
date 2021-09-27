@@ -3,7 +3,7 @@
 from adafruit_motorkit import MotorKit
 from adafruit_motor import stepper
 import time
-
+import numpy as np
 
 class Stepper:
     def __init__(self, address):
@@ -18,10 +18,10 @@ class Stepper:
 
         stepper_num = stepper_num
         if stepper_num == 1:
-            for i in range(0, steps):
+            for i in np.arange(0, steps, 1.25):
                 self.kit.stepper1.onestep(direction=direction, style=style)
         elif stepper_num == 2:
-            for i in range(0, steps):
+            for i in np.arange(0, steps,1.25):
                 self.kit.stepper2.onestep(direction=direction, style=style)
     def motor(self, motor_num, throttle):
         if motor_num == 1:

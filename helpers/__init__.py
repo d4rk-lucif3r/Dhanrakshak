@@ -1,3 +1,26 @@
 import RPi.GPIO as IO
+from helpers.config import *
+from helpers.sensors.relay import Relay
 IO.setwarnings(False)
 IO.setmode(IO.BCM)
+ch1_1 = Relay(UV_1_NOTE)
+ch1_1.off()
+ch2_1 = Relay(UV_1_COIN)
+ch2_1.off()
+
+ch1_2 = Relay(COIN_VALVE, type =2)
+ch1_2.off()
+ch2_2 = Relay(NOTE_VALVE, type =2)
+ch2_2.off()
+ch3_2 = Relay(LIGHT, type=2)
+ch3_2.off()
+ch4_2 = Relay(BLOWER_NOTE_RELAY, type = 2)
+ch4_2.off()
+ch5_2 = Relay(BLOWER_COIN_RELAY, type =2)
+ch5_2.off()
+ch6_2 = Relay(LOCK_RELAY, type = 2)
+ch6_2.off()
+ch7_2 = Relay(COIN_SPRAY, type =2)
+ch7_2.off()
+ch8_2 = Relay(NOTE_SPRAY, type =2)
+ch8_2.off()
