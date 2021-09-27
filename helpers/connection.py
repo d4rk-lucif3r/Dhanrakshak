@@ -60,9 +60,9 @@ class Connection(QObject):
 
     @ Slot(QObject)
     def splashCheck(self, recieved_object):
-        if self.note_manager.run:
-            recieved_object.setProperty('showSplash', True)
-
+        # if self.note_manager.run:
+        #     recieved_object.setProperty('showSplash', True)
+        pass
     @ Slot(QObject)
     def methodCheck(self, recieved_object):
         self.noteUV = recieved_object.property('noteisUV')
@@ -72,7 +72,7 @@ class Connection(QObject):
 
     @ Slot(QObject)
     def fluidCheck(self, recieved_object):
-        if self.level.levelCheck:
+        if not self.level.levelCheck:
             recieved_object.setProperty('visible', True)
 
     @ Slot(QObject)

@@ -35,10 +35,10 @@ LINEAR_FLAP_STEPS = 10
 
 ### COIN
 IR_1_Rupee = 4
-IR_2_Rupees = 17
-IR_5_Rupees = 27
-IR_10_Rupees = 22
-IR_20_Rupees = 10
+IR_2_Rupees = 27
+IR_5_Rupees = 10
+IR_10_Rupees = 10
+IR_20_Rupees = 22
 
   # not final
 IR_INPUT_COIN = 11

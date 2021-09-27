@@ -1,9 +1,7 @@
-#!python
-#cython: language_level=3
+
 import time
-from multiprocessing import Process, Pool
+from multiprocessing import Process
 from threading import Thread
-import threading
 import RPi.GPIO as IO
 from helpers.config import *
 from helpers.detector import Detector
@@ -12,8 +10,6 @@ from helpers.sensors.limitswitch import LimitSwitch
 from helpers.sensors.relay import Relay
 from helpers.sensors.stepper import Stepper
 import os
-# from multiprocessing import set_start_method
-# set_start_method("spawn")
 
 
 class NoteManager:
@@ -52,7 +48,7 @@ class NoteManager:
         self.conveyor_stepper_2 = Stepper(CONVEYOR_MOTOR_ADDRESS)
         self.dispense = Stepper(NOTE_DISPENSE_MOTOR_ADDRESS)
 
-        self.calibrate()
+        # self.calibrate()
         self.feed_process = None
         self.conveyor_stepper_1_process = None
         self.conveyor_stepper_2_process = None
@@ -70,6 +66,7 @@ class NoteManager:
             self.is_ethanol = is_ethanol
             print('[UV-rec]', is_uv)
             print('[Ethanol-rec]', is_ethanol)
+            self.progress = 20
             if self.count == 0:
                 self.light.on()
                 self.stop_thread = False
@@ -86,13 +83,11 @@ class NoteManager:
                     target=self.sync_dispenseTray, daemon=True)
                 self.sync_process.start()
                 if self.is_ethanol:
-                    self.blower.on()
                     self.spray_thread = Thread(
                         target=self.spray_note)
                     self.spray_thread.start()
 
                 self.count = 1
-                self.progress = 20
         except KeyboardInterrupt:
             self.stop()
 
@@ -110,7 +105,7 @@ class NoteManager:
     def feed_note(self):
         
         while True:
-            # print('[DEBUG] Feeder Running :', os.getpid())
+
             if self.input_ir.detect():
                 if not self.dispense_ir.detect():
                     self.lock_relay.off()
@@ -127,12 +122,12 @@ class NoteManager:
 
     def conveyor_run1(self):
         while True:
-            # print('[DEBUG] Running 1st Conveyor :', os.getpid())
+
             if self.input_ir.detect():
-                # while not self.dispense_ir.detect():
-                time.sleep(.3)
+
+                time.sleep(.6)
                 self.conveyor_stepper_1.move(
-                    3600, CONVEYOR_MOTOR_1_NUM, direction='Backward')
+                    4600, CONVEYOR_MOTOR_1_NUM, direction='Backward')
                 self.conveyor_stepper_1.deactivate(CONVEYOR_MOTOR_1_NUM)
             if self.conveyor_ir.detect():
                 time.sleep(2)
@@ -143,12 +138,12 @@ class NoteManager:
 
     def conveyor_run2(self):
         while True:
-            # print('[DEBUG] Running 2nd Conveyor:', os.getpid())
+
             if self.input_ir.detect():
-                time.sleep(.3)
+                time.sleep(.6)
                 self.progress = 30
                 self.conveyor_stepper_2.move(
-                    3600, CONVEYOR_MOTOR_2_NUM, direction='Forward')
+                    4600, CONVEYOR_MOTOR_2_NUM, direction='Forward')
                 self.conveyor_stepper_2.deactivate(CONVEYOR_MOTOR_2_NUM)
             if self.conveyor_ir.detect():
                 time.sleep(3)
@@ -159,13 +154,10 @@ class NoteManager:
             time.sleep(1)
 
     def sync_dispenseTray(self):
-        # print('[DEBUG] Running Sync', os.getpid())
+
         sync = 0
         while True:
             if self.conveyor_ir.detect():
-                if self.is_uv:
-                    self.uv1_relay.off()
-
                 self.dispense.motor(3, .7)
                 sync = 0
             if sync == 0:
@@ -178,7 +170,7 @@ class NoteManager:
 
     def spray_note(self):
         while True:
-            # print('[DEBUG] Running Spray :', os.getpid())
+
             if self.input_ir.detect():
                 self.valve.on()
                 time.sleep(1)
@@ -213,7 +205,7 @@ class NoteManager:
                     self.currency = self.note_detector.max_currency
                     self.note_detector.clear()
                     print('[Currency] ', self.currency)
-                    # if self.currency != '0':
+
                     if self.currency == '10':
                         self.ten_note_count += 1
                         self.dispense.move(
@@ -315,6 +307,8 @@ class NoteManager:
                         
                     if self.is_ethanol:
                         self.blower.off()
+                    if self.is_uv:
+                        self.uv1_relay.off()
 
                 if self.stop_detect_thread:
                     print('[Killed Detect Thread]')
@@ -373,4 +367,6 @@ class NoteManager:
         self.fivehund_note_count = 0
         self.twothousand_note_count = 0
         self.progress = 0
+        self.is_uv = False
+        self.is_ethanol = False
         print('Cleaned')

@@ -7,11 +7,11 @@ import QtQuick.Controls 1.1
 ApplicationWindow
 {
     id:main_v
-    //objectName: "main_view"
+    objectName: "main_view"
     width: 800
 
     height: 480
-    //flags: Qt.FramelessWindowHint | Qt.Window
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     visible:true
 
