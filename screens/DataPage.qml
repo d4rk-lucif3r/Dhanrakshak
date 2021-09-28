@@ -55,6 +55,7 @@ Rectangle {
     property bool unlock: false
     property bool unlockClick : false
 
+
     Rectangle{
         anchors.fill: parent
         anchors.rightMargin: 0
@@ -283,7 +284,7 @@ Rectangle {
                     id: text47
                     y: 42
                     height: 50
-                    text: fiveCoin
+                    text: oneCoin
                     anchors.fill: parent
                     font.pixelSize: 18
                     horizontalAlignment: Text.AlignHCenter
@@ -333,7 +334,7 @@ Rectangle {
                     id: text44
                     y: 42
                     height: 50
-                    text: fiveCoin
+                    text: twoCoin
                     anchors.fill: parent
                     font.pixelSize: 18
                     horizontalAlignment: Text.AlignHCenter
@@ -1257,10 +1258,11 @@ Rectangle {
                 MouseArea{
                 anchors.fill:parent
                 onClicked: {
-                    slot.stop(timer, dataPageRoot)
-                    load_page('Page 1')
 
-                }
+                    slot.stop(timer, dataPageRoot)
+                    load_page('Page 1')}
+
+                
                 }
             }
 

@@ -451,6 +451,15 @@ Rectangle {
                                 }
                             }
                         }
+                                                Text {
+                            id: modenotselectedtxt
+                            x: 25
+                            y: 108
+                            color: "#da0e0e"
+                            text: qsTr("Please Select Either Mode")
+                            visible: false
+                            font.pixelSize: 12
+                        }
                     }
                 }
 
@@ -492,7 +501,7 @@ Rectangle {
 //                            height: 40
 //                            text: qsTr("UV")
 //                            onCheckStateChanged: {
-//                                startPageRoot.noteisUV = noteuvcheck.checkState
+//                                startPageRoot.noteisUV = noteuvcheck.checkState;
 //                            }
 ////                            checked: startPageRoot.noteisUV
 //                            font.family: "Source Sans Pro"
@@ -527,7 +536,8 @@ Rectangle {
 
                             font.pointSize: 12
                             onCheckedChanged: {
-                                startPageRoot.noteisUV = noteuvcheck.checked
+                                startPageRoot.noteisUV = noteuvcheck.checked;
+                                modenotselectedtxt.visible = false;
                             }
 //                            checked: startPageRoot.noteisUV
                             font.family: "Source Sans Pro"
@@ -599,7 +609,8 @@ Rectangle {
                             width: 107
                             height: 40
                             onCheckedChanged: {
-                                startPageRoot.noteisEthanol = noteethanolcheck.checked
+                                startPageRoot.noteisEthanol = noteethanolcheck.checked;
+                                modenotselectedtxt.visible = false;
                             }
 
                             text: qsTr("Ethanol")
@@ -662,7 +673,7 @@ Rectangle {
 //                            width: 87
 //                            height: 40
 //                            onCheckStateChanged: {
-//                                startPageRoot.coinisUV = coinuvcheck.checkState
+//                                startPageRoot.coinisUV = coinuvcheck.checkState;
 //                            }
 ////                            checked: startPageRoot.coinisUV
 //                            text: qsTr("UV")
@@ -694,7 +705,8 @@ Rectangle {
                             width: 107
                             height: 40
                             onCheckedChanged: {
-                                startPageRoot.coinisUV = coinuvcheck.checked
+                                startPageRoot.coinisUV = coinuvcheck.checked;
+                                modenotselectedtxt.visible = false;
                             }
 //                            checked: startPageRoot.coinisUV
                             text: qsTr("UV")
@@ -805,7 +817,8 @@ Rectangle {
                             width: 107
                             height: 40
                             onCheckedChanged: {
-                                startPageRoot.coinisEthanol = coinethanolcheck.checked
+                                startPageRoot.coinisEthanol = coinethanolcheck.checked;
+                                modenotselectedtxt.visible = false;
                             }
 //                            checked: startPageRoot.coinisEthanol
                             text: qsTr("Ethanol")
@@ -879,6 +892,8 @@ Rectangle {
                     if(startPageRoot.shutCount == 0){
                     shutdownselectorroot.visible = true;
                     startPageRoot.pin = ''
+                    startPageRoot.asterisk = ''
+                    pin_rect_txt.text = startPageRoot.pin_hint
                         initializeStartText.visible = false;
                         startPageRoot.shutCount = 1;
                         return
@@ -887,6 +902,8 @@ Rectangle {
                     if(startPageRoot.shutCount == 1){
                     shutdownselectorroot.visible = false;
                     startPageRoot.pin = ''
+                    startPageRoot.asterisk = ''
+                    pin_rect_txt.text = startPageRoot.pin_hint
                     initializeStartText.visible = true;
                         startPageRoot.shutCount = 0;
                         return
@@ -949,6 +966,7 @@ Rectangle {
                         startButton2.visible = true
                         startButton.visible = false
                         shutdowncallbtn.visible = false
+                        shutdownselectorroot.visible = false
 
                     }}
             }
@@ -1171,8 +1189,14 @@ Rectangle {
             MouseArea{
             anchors.fill:parent
             onClicked: {
+                  if((startPageRoot.noteisUV)||(startPageRoot.noteisEthanol)||(startPageRoot.coinisUV)||(startPageRoot.coinisEthanol)){
                   slot.start()
+                   modenotselectedtxt.visible = false;
                   load_page('Page 2')
+            }
+            else{
+                  modenotselectedtxt.visible = true;
+                  }
             }
             }
         }
