@@ -51,7 +51,6 @@ Rectangle {
     property int twoCoin: 0
     property int oneCoin: 0
 
-    property bool levelLow: false
     property bool unlock: false
     property bool unlockClick : false
 
@@ -841,7 +840,6 @@ Rectangle {
                 y: 202
                 width: 152
                 height: 115
-//                color: "#aab6fe"
                 gradient: Gradient {
                     GradientStop {
                         position: 0.283
@@ -1029,125 +1027,6 @@ Rectangle {
                 }
             }
         }
-        Rectangle{
-        id : lowFluidLevelAlert
-        x:265
-        y:173
-        width:271
-        height:135
-        color: "#0d47a1"
-        radius: 15
-        visible: dataPageRoot.levelLow
-        z: 1
-        border.color :'#000000'
-        border.width : 2
-        Rectangle {
-            id: lowFluidLevelAlertrect
-            x: 8
-            y: 8
-            width: 255
-            height: 37
-            color: "#f1d22d"
-            radius: 15
-            border.color: "#000000"
-            border.width: 2
-            Text {
-                id: lowFluidLevelAlerttxt
-                text: qsTr("ALERT!!!")
-                anchors.bottomMargin: 0
-                anchors.fill: parent
-                font.pixelSize: 15
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                anchors.topMargin: 0
-                font.family: "Source Sans Pro Black"
-                font.bold: true
-            }
-        }
-        Rectangle {
-            id: lowFluidLevelAlertwarnrect
-            x: 8
-            y: 51
-            width: 255
-            height: 76
-            color: "#f64040"
-            radius: 15
-            border.color :'#000000'
-            border.width : 2
-
-            Text {
-                id: lowFluidLevelAlertwarntxt
-                text: qsTr("Sanitizer Level Low")
-                anchors.fill: parent
-                font.pixelSize: 17
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                anchors.topMargin: 0
-                font.family: "Source Sans Pro Black"
-                font.bold: true
-                MouseArea{}
-            }
-        }
-        }
-//        Rectangle{
-//        id : unlockmessagealert
-//        x:265
-//        y:173
-//        width:271
-//        height:135
-//        color: "#0d47a1"
-//        radius: 15
-//        visible: dataPageRoot.unlock
-//        z: 1
-//        border.color :'#000000'
-//        border.width : 2
-//        Rectangle {
-//            id: unlockmsgheadrect
-//            x: 8
-//            y: 8
-//            width: 255
-//            height: 46
-//            color: "#f1d22d"
-//            radius: 15
-//            border.color: "#000000"
-//            border.width: 2
-//            Text {
-//                id: unlockmsgheadtxt
-//                text: qsTr("Sanitization Completed")
-//                anchors.bottomMargin: 0
-//                anchors.fill: parent
-//                font.pixelSize: 15
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                anchors.topMargin: 0
-//                font.family: "Source Sans Pro Black"
-//                font.bold: true
-//            }
-//        }
-//        Rectangle {
-//            id: unlocktmsgrect
-//            x: 8
-//            y: 60
-//            width: 255
-//            height: 67
-//            color: "#18de63"
-//            radius: 15
-//            border.color :'#000000'
-//            border.width : 2
-//
-//            Text {
-//                id: unlockmsgtxt
-//                text: qsTr("Unlock Tray!!")
-//                anchors.fill: parent
-//                font.pixelSize: 15
-//                horizontalAlignment: Text.AlignHCenter
-//                verticalAlignment: Text.AlignVCenter
-//                anchors.topMargin: 0
-//                font.family: "Source Sans Pro Black"
-//                font.bold: true
-//                MouseArea{}
-//            }
-//        }
       }
 
         Rectangle{
@@ -1262,7 +1141,7 @@ Rectangle {
                     slot.stop(timer, dataPageRoot)
                     load_page('Page 1')}
 
-                
+
                 }
             }
 
@@ -1354,20 +1233,20 @@ Rectangle {
                     font.family: "Source Sans Pro "
                     font.bold: true
                 }
-                
+
                 MouseArea {
                     rotation: 0
                     anchors.rightMargin: 0
                     anchors.fill: parent
                     anchors.bottomMargin: 0
                     onClicked: {
-                        
+
                         exitmessagealert.visible = true
                     }
                 }
                 anchors.bottomMargin: 7
             }
-            
+
             Rectangle {
                 id: rectangle7
                 x: 9
@@ -1381,20 +1260,20 @@ Rectangle {
                         position: 0.547
                         color: "#1b9177"
                     }
-                    
+
                     GradientStop {
                         position: 0.045
                         color: "#1b9177"
                     }
-                    
+
                     GradientStop {
                         position: 1.3
                         color: "#000000"
                     }
-                    
-                    
+
+
                 }
-                
+
                 Text {
                     id: element
                     color: "#000000"
@@ -1407,7 +1286,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     anchors.fill: parent
                     font.pixelSize: 22
-                    MouseArea{                    
+                    MouseArea{
                     anchors.fill:parent
                     onClicked: {
                         if (dataPageRoot.unlock){
@@ -1483,7 +1362,6 @@ Rectangle {
                 slot.coinUpdate(dataPageRoot)
                 slot.progress_update(dataPageRoot)
                 slot.sum_update(dataPageRoot)
-                slot.fluidCheck(lowFluidLevelAlertwarnrect)
                 slot.unlockTray(dataPageRoot);
             }
     }

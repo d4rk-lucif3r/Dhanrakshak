@@ -321,67 +321,6 @@ Rectangle {
                 color: "#000000"
                 radius: 15
 
-//                Rectangle {
-//                    id: basicSantizeRectangle
-//                    x: 8
-//                    y: 177
-//                    width: 187
-//                    height: 63
-//                    color: "#7986cb"
-//                    radius: 15
-//                    Text {
-//                        id: basicSantizeText
-//                        anchors.fill: parent
-//                        color: "#000000"
-//                        text: qsTr("Basic Sanitize")
-//                        font.pixelSize: 25
-//                        horizontalAlignment: Text.AlignHCenter
-//                        verticalAlignment: Text.AlignVCenter
-//                        wrapMode: Text.Wrap
-//                        font.family: "Source Sans Pro"
-//                    }
-//                  MouseArea{
-//                      anchors.fill: parent
-//                      onClicked: {
-//                          startPageRoot.isPremium = false
-//                          confirmMessageDialog.visible = true
-//                      }
-//                  }
-
-//                }
-
-
-//                Rectangle {
-//                    id: premiumSanitizeRect
-//                    x: 8
-//                    y: 260
-//                    width: 187
-//                    height: 63
-//                    color: "#7986cb"
-//                    radius: 15
-
-//                    Text {
-//                        id: premiumSanitizeText
-//                       anchors.fill: parent
-//                       color: "#000000"
-//                       text: qsTr("Premium Sanitize")
-//                       font.pixelSize: 25
-//                       horizontalAlignment: Text.AlignHCenter
-//                       verticalAlignment: Text.AlignVCenter
-//                       lineHeight: 0.8
-//                       wrapMode: Text.Wrap
-//                       fontSizeMode: Text.Fit
-//                       font.family: "Source Sans Pro"
-//                    }
-//                    MouseArea{
-//                        anchors.fill: parent
-//                        onClicked: {
-//                            startPageRoot.isPremium = true
-//                            confirmMessageDialog.visible = true
-//                        }
-//                    }
-//                }
-
                 Rectangle {
                     id: instructionRect
                     x: 8
@@ -440,14 +379,14 @@ Rectangle {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked:{
-//                                    selectorRect.visible=false;
+
                                       messagealert.visible = true
-//                                    dataPage_view.visible = true
-//                                    selectorRect.visible = false
-//                                    startPageRoot.isStart = true
-//                                   // dataPage_view.dataPageRoot.timer.running = true
-//                                    initializeStartText.visible = true
-//                                    initializeStartText.visible = true;
+
+
+
+
+
+
                                 }
                             }
                         }
@@ -492,40 +431,6 @@ Rectangle {
                             font.family: "Source Sans Pro"
 
                         }
-
-//                        CheckBox {
-//                            id: noteuvcheck
-//                            x: 68
-//                            y: 8
-//                            width: 87
-//                            height: 40
-//                            text: qsTr("UV")
-//                            onCheckStateChanged: {
-//                                startPageRoot.noteisUV = noteuvcheck.checkState;
-//                            }
-////                            checked: startPageRoot.noteisUV
-//                            font.family: "Source Sans Pro"
-//                            indicator: Rectangle {
-//                                implicitWidth: 26
-//                                implicitHeight: 26
-//                                x: noteuvcheck.leftPadding
-//                                y: parent.height / 2 - height / 2
-//                                radius: 15
-//                                color: "#000000"
-//                                border.color: noteuvcheck.down ? "#aab6fe" : "#7986cb"
-
-//                                Rectangle {
-//                                    width: 14
-//                                    height: 14
-//                                    x: 6
-//                                    y: 6
-//                                    radius: 15
-//                                    color: noteuvcheck.down ? "#aab6fe" : "#7986cb"
-//                                    visible: noteuvcheck.checked
-//                                }
-
-//                            }
-//                        }
                         Switch {
                             id: noteuvcheck
                             x: 56
@@ -539,7 +444,7 @@ Rectangle {
                                 startPageRoot.noteisUV = noteuvcheck.checked;
                                 modenotselectedtxt.visible = false;
                             }
-//                            checked: startPageRoot.noteisUV
+
                             font.family: "Source Sans Pro"
                             indicator: Rectangle {
                                     implicitWidth: 40
@@ -570,38 +475,7 @@ Rectangle {
                                 }
                         }
 
-//                        CheckBox {
-//                            id: noteethanolcheck
-//                            x: 68
-//                            y: 51
-//                            width: 87
-//                            height: 40
-//                            onCheckStateChanged: {
-//                                startPageRoot.noteisEthanol = noteethanolcheck.checkState
-//                            }
 
-//                            text: qsTr("Ethanol")
-//                            font.family: "Source Sans Pro"
-//                            indicator: Rectangle {
-//                                implicitWidth: 26
-//                                implicitHeight: 26
-//                                x: noteethanolcheck.leftPadding
-//                                y: parent.height / 2 - height / 2
-//                                radius: 15
-//                                color: "#000000"
-//                                border.color: noteethanolcheck.down ? "#aab6fe" : "#7986cb"
-
-//                                Rectangle {
-//                                    width: 14
-//                                    height: 14
-//                                    x: 6
-//                                    y: 6
-//                                    radius: 15
-//                                    color: noteethanolcheck.down ? "#aab6fe" : "#7986cb"
-//                                    visible: noteethanolcheck.checked
-//                                }
-//                            }
-//                        }
                         CheckBox {
                             id: noteethanolcheck
                             x: 56
@@ -666,38 +540,6 @@ Rectangle {
                             font.family: "Source Sans Pro"
                         }
 
-//                        CheckBox {
-//                            id: coinuvcheck
-//                            x: 68
-//                            y: 8
-//                            width: 87
-//                            height: 40
-//                            onCheckStateChanged: {
-//                                startPageRoot.coinisUV = coinuvcheck.checkState;
-//                            }
-////                            checked: startPageRoot.coinisUV
-//                            text: qsTr("UV")
-//                            font.family: "Source Sans Pro"
-//                            indicator: Rectangle {
-//                                    implicitWidth: 26
-//                                    implicitHeight: 26
-//                                    x: coinuvcheck.leftPadding
-//                                    y: parent.height / 2 - height / 2
-//                                    radius: 15
-//                                    color: "#000000"
-//                                    border.color: coinuvcheck.down ? "#aab6fe" : "#7986cb"
-
-//                                    Rectangle {
-//                                        width: 14
-//                                        height: 14
-//                                        x: 6
-//                                        y: 6
-//                                        radius: 15
-//                                        color: coinuvcheck.down ? "#aab6fe" : "#7986cb"
-//                                        visible: coinuvcheck.checked
-//                                    }
-//                                }
-//                        }
                         Switch {
                             id: coinuvcheck
                             x: 56
@@ -708,7 +550,7 @@ Rectangle {
                                 startPageRoot.coinisUV = coinuvcheck.checked;
                                 modenotselectedtxt.visible = false;
                             }
-//                            checked: startPageRoot.coinisUV
+
                             text: qsTr("UV")
                             font.pointSize: 12
                             font.family: "Source Sans Pro"
@@ -742,74 +584,6 @@ Rectangle {
                                 }
 
                         }
-
-//                        CheckBox {
-//                            id: coinethanolcheck
-//                            x: 68
-//                            y: 51
-//                            width: 87
-//                            height: 40
-//                            onCheckStateChanged: {
-//                                startPageRoot.coinisEthanol = coinethanolcheck.checkState
-//                            }
-////                            checked: startPageRoot.coinisEthanol
-//                            text: qsTr("Ethanol")
-//                            font.family: "Source Sans Pro"
-
-//                            indicator: Rectangle {
-//                                implicitWidth: 26
-//                                implicitHeight: 26
-//                                x: noteuvcheck.leftPadding
-//                                y: parent.height / 2 - height / 2
-//                                radius: 15
-//                                color: "#000000"
-//                                border.color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
-
-//                                Rectangle {
-//                                    width: 14
-//                                    height: 14
-//                                    x: 6
-//                                    y: 6
-//                                    radius: 15
-//                                    color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
-//                                    visible: coinethanolcheck.checked
-//                                }
-//                            }
-//                        }
-//                        CheckBox {
-//                            id: coinethanolcheck
-//                            x: 68
-//                            y: 51
-//                            width: 87
-//                            height: 40
-//                            onCheckStateChanged: {
-//                                startPageRoot.coinisEthanol = coinethanolcheck.checkState
-//                            }
-////                            checked: startPageRoot.coinisEthanol
-//                            text: qsTr("Ethanol")
-//                            font.family: "Source Sans Pro"
-
-//                            indicator: Rectangle {
-//                                implicitWidth: 26
-//                                implicitHeight: 26
-//                                x: noteuvcheck.leftPadding
-//                                y: parent.height / 2 - height / 2
-//                                radius: 15
-//                                color: "#000000"
-//                                border.color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
-
-//                                Rectangle {
-//                                    width: 14
-//                                    height: 14
-//                                    x: 6
-//                                    y: 6
-//                                    radius: 15
-//                                    color: coinethanolcheck.down ? "#aab6fe" : "#7986cb"
-//                                    visible: coinethanolcheck.checked
-//                                }
-//                            }
-//                        }
-
                         Switch {
                             id: coinethanolcheck
                             x: 56
@@ -820,7 +594,7 @@ Rectangle {
                                 startPageRoot.coinisEthanol = coinethanolcheck.checked;
                                 modenotselectedtxt.visible = false;
                             }
-//                            checked: startPageRoot.coinisEthanol
+
                             text: qsTr("Ethanol")
                             font.pointSize: 10
                             font.family: "Source Sans Pro"
@@ -1232,8 +1006,7 @@ Rectangle {
             interval:500
             running: true
             repeat: true
-            onTriggered: {
-               // print('Timer Running')
+            onTriggered: {              
                 slot.methodCheck(startPageRoot)
 
             }
@@ -1243,8 +1016,7 @@ Rectangle {
         interval: 10000
         running: true
         onTriggered: {
-          startPageRoot.showSplash = false
-        //    slot.splashCheck(startPageRoot)
+          startPageRoot.showSplash = false   
 
         }
 
@@ -1258,159 +1030,3 @@ visible: startPageRoot.showSplash
 
 }
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:1.100000023841858}D{i:43}D{i:45}
-}
-##^##*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*##^## Designer {
-    D{i:22;anchors_x:89;anchors_y:20}
-}
- ##^##*/
