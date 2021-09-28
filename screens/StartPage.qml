@@ -24,6 +24,8 @@ Rectangle {
     property string asterisk : ''
     property int shutCount: 0
     property bool showSplash: true
+    property bool showLevelCheck: false
+    property bool fluidCheck: false
     Rectangle{
         anchors.fill: parent
         id:pageRect
@@ -485,6 +487,7 @@ Rectangle {
                             onCheckedChanged: {
                                 startPageRoot.noteisEthanol = noteethanolcheck.checked;
                                 modenotselectedtxt.visible = false;
+                                fluidCheckTimer.running = true
                             }
 
                             text: qsTr("Ethanol")
@@ -593,6 +596,7 @@ Rectangle {
                             onCheckedChanged: {
                                 startPageRoot.coinisEthanol = coinethanolcheck.checked;
                                 modenotselectedtxt.visible = false;
+                                fluidCheckTimer.running = true
                             }
 
                             text: qsTr("Ethanol")
@@ -857,6 +861,66 @@ Rectangle {
 
     }
     Rectangle{
+    id : lowFluidLevelAlert
+    x:265
+    y:173
+    width:271
+    height:135
+    color: "#0d47a1"
+    radius: 15
+    visible: startPageRoot.showLevelCheck
+    z: 1
+    border.color :'#000000'
+    border.width : 2
+    Rectangle {
+        id: lowFluidLevelAlertrect
+        x: 8
+        y: 8
+        width: 255
+        height: 37
+        color: "#f1d22d"
+        radius: 15
+        border.color: "#000000"
+        border.width: 2
+        Text {
+            id: lowFluidLevelAlerttxt
+            text: qsTr("ALERT!!!")
+            anchors.bottomMargin: 0
+            anchors.fill: parent
+            font.pixelSize: 15
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.topMargin: 0
+            font.family: "Source Sans Pro Black"
+            font.bold: true
+        }
+    }
+    Rectangle {
+        id: lowFluidLevelAlertwarnrect
+        x: 8
+        y: 51
+        width: 255
+        height: 76
+        color: "#f64040"
+        radius: 15
+        border.color :'#000000'
+        border.width : 2
+
+        Text {
+            id: lowFluidLevelAlertwarntxt
+            text: qsTr("Sanitizer Level Low")
+            anchors.fill: parent
+            font.pixelSize: 17
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.topMargin: 0
+            font.family: "Source Sans Pro Black"
+            font.bold: true
+            MouseArea{}
+        }
+    }
+    }
+    Rectangle{
         id : messagealert
         x: 265
         y: 173
@@ -1006,7 +1070,7 @@ Rectangle {
             interval:500
             running: true
             repeat: true
-            onTriggered: {              
+            onTriggered: {
                 slot.methodCheck(startPageRoot)
 
             }
@@ -1016,9 +1080,17 @@ Rectangle {
         interval: 10000
         running: true
         onTriggered: {
-          startPageRoot.showSplash = false   
+          startPageRoot.showSplash = false
 
         }
+    Timer{
+    id: fluidCheckTimer
+    interval: 500
+    running: false
+    onTriggered: {
+        slot.fluidCheck(startPageRoot)
+    }
+    }
 
 
     }
