@@ -1,9 +1,7 @@
 #!python
 # cython: language_level=3
-import random
-from multiprocessing import Process
+import os
 from threading import Thread
-import time
 from PySide2.QtCore import QObject, Slot
 
 from helpers.config import *
@@ -12,7 +10,7 @@ from helpers.managers.note_manager import NoteManager
 from helpers.sensors.ir import Ir
 from helpers.sensors.levelSensor import LevelSensor
 from helpers.sensors.relay import Relay
-import os
+
 
 class Connection(QObject):
 
@@ -33,7 +31,7 @@ class Connection(QObject):
         self.twothousand_list = []
 
         self.note_manager = NoteManager()
-        self.note_manager_result = {}
+        self.note_result = {}
         self.coin_manager = CoinManager()
 
     @ Slot()
@@ -48,12 +46,11 @@ class Connection(QObject):
                 target=self.note_manager.detect_note, daemon=False)
             self.detect_thread.start()
         if self.coinUV or self.coinEthanol:
-            # if count == 0:
-            self.coin_manager_process = Process(
-                target=self.coin_manager.start, args=[self.coinUV, self.coinEthanol])
+            print('[UV- COIN]', self.coinUV)
+            print('[Ethanol -COIN]', self.coinEthanol)
+            self.coin_manager.start(self.coinEthanol, self.coinEthanol)
             self.coin_detect_thread = Thread(
-                target=self.coin_manager.detect, daemon=True)
-            self.coin_manager_process.start()
+                target=self.coin_manager.detect, daemon=False)
             self.coin_detect_thread.start()
         # count = 1
         print('[INFO] Started')
@@ -63,6 +60,7 @@ class Connection(QObject):
         # if self.note_manager.run:
         #     recieved_object.setProperty('showSplash', True)
         pass
+
     @ Slot(QObject)
     def methodCheck(self, recieved_object):
         self.noteUV = recieved_object.property('noteisUV')
@@ -72,13 +70,19 @@ class Connection(QObject):
 
     @ Slot(QObject)
     def fluidCheck(self, recieved_object):
-        if not self.level.levelCheck:
-            recieved_object.setProperty('visible', True)
+        if not self.level.levelCheck():
+            recieved_object.setProperty('showLevelCheck', True)
+    @ Slot(QObject)
+    def trayCheck(self, recieved_object):
+        if not self.trayIR.detect():
+            recieved_object.setProperty('showTrayCheck', True)
+            print('[INFO] Tray Check')
 
     @ Slot(QObject)
     def unlockTray(self, recieved_object):
-        self.progress = self.note_manager_result['progress']
+        self.progress = self.note_result['progress']
         if self.progress == 100:
+            self.start_check = False
             recieved_object.setProperty('unlock', True)
             if recieved_object.property('unlockClick'):
                 self.lock_relay.on()
@@ -86,31 +90,17 @@ class Connection(QObject):
                 recieved_object.setProperty('unlockClick', False)
                 recieved_object.setProperty('unlock', False)
                 self.progress = 0
-        # if self.progress != 100:
-            
-                # if self.trayIR.detect():
-                #     self.lock_relay.off()
 
     @ Slot(QObject, QObject)
     def stop(self, recieved_object, recieved_object2):
         recieved_object.setProperty('running', False)
         if self.noteUV or self.noteEthanol:
-            # if self.note_manager_process.is_alive():
-            # self.note_manager_process.terminate()
             self.note_manager.stop_detect_thread = True
             self.detect_thread.join()
             self.note_manager.stop_detect_thread = False
             self.note_manager.result_dict = {}
             self.note_manager.stop()
-        if self.coinUV or self.coinEthanol:
-            if self.coin_manager_process.is_alive():
-                self.coin_manager_process.terminate()
-                self.coin_detect_thread.terminate()
-                self.coin_manager.result_dict = {}
-        self.note_manager_result = {}
-        self.progress = 0
-        print("[INFO] Stopped")
-        recieved_object2.setProperty('tenNote', 0)
+            recieved_object2.setProperty('tenNote', 0)
         recieved_object2.setProperty(
             'twentyNote', 0)
         recieved_object2.setProperty(
@@ -123,65 +113,87 @@ class Connection(QObject):
             'fiveHunNote', 0)
         recieved_object2.setProperty(
             'twoThNote', 0)
+        if self.coinUV or self.coinEthanol:
+            self.coin_manager.stop_detect_thread = True
+            self.coin_detect_thread.join()
+            self.coin_manager.stop_detect_thread = False
+            self.coin_manager.result_dict = {}
+            self.coin_manager.stop()
+        recieved_object2.setProperty('tenCoin', 0)
+        recieved_object2.setProperty(
+            'twentyCoin', 0)
+        recieved_object2.setProperty(
+            'tenCoin', 0)
+        recieved_object2.setProperty(
+            'fiveCoin', 0)
+        recieved_object2.setProperty(
+            'twoCoin', 0)
+        recieved_object2.setProperty(
+            'oneCoin', 0)
+        self.note_result = {}
+        self.coin_result = {}
+        self.progress = 0
+        print("[INFO] Stopped")
+        recieved_object2.setProperty('progress', 0)
         recieved_object2.setProperty("total", 0)
-        # self.det_obj.stop()
-        # self.stopThread = False
-        # self.detectThread.join()
 
     @ Slot(QObject)
     def noteUpdate(self, recieved_object):
-        self.note_manager_result = self.note_manager.result()
-        recieved_object.setProperty('tenNote', self.note_manager_result['ten'])
+        self.note_result = self.note_manager.result()
+        recieved_object.setProperty('tenNote', self.note_result['ten'])
         recieved_object.setProperty(
-            'twentyNote', self.note_manager_result['twenty'])
+            'twentyNote', self.note_result['twenty'])
         recieved_object.setProperty(
-            'fiftyNote', self.note_manager_result['fifty'])
+            'fiftyNote', self.note_result['fifty'])
         recieved_object.setProperty(
-            'oneHunNote', self.note_manager_result['hund'])
+            'oneHunNote', self.note_result['hund'])
         recieved_object.setProperty(
-            'twoHunNote', self.note_manager_result['twohund'])
+            'twoHunNote', self.note_result['twohund'])
         recieved_object.setProperty(
-            'fiveHunNote', self.note_manager_result['fivehund'])
+            'fiveHunNote', self.note_result['fivehund'])
         recieved_object.setProperty(
-            'twoThNote', self.note_manager_result['twothousand'])
+            'twoThNote', self.note_result['twothousand'])
 
     @ Slot(QObject)
     def coinUpdate(self, recieved_object):
-        # pass
-        self.coin_count = self.coin_manager.result()
+        self.coin_result = self.coin_manager.result()
 
-        # recieved_object.setProperty(
-        #     "twentyCoin", self.coin_count['twenty_coin'])
-        # recieved_object.setProperty("tenCoin", self.coin_count['ten_coin'])
-        # recieved_object.setProperty("fiveCoin", self.coin_count['five_coin'])
-        # recieved_object.setProperty("twoCoin", self.coin_count['two_coin'])
-        # recieved_object.setProperty("oneCoin", self.coin_count['one_coin'])
+        recieved_object.setProperty(
+            "twentyCoin", self.coin_result['twenty_coin'])
+        recieved_object.setProperty("tenCoin", self.coin_result['ten_coin'])
+        recieved_object.setProperty("fiveCoin", self.coin_result['five_coin'])
+        recieved_object.setProperty("twoCoin", self.coin_result['two_coin'])
+        recieved_object.setProperty("oneCoin", self.coin_result['one_coin'])
+
     @ Slot(QObject)
     def sum_update(self, recieved_object):
         # result = self.note_manager_result.values()
-        note_sum = int(self.note_manager_result['ten'] *
-                       10 + self.note_manager_result['twenty'] * 20 +
-                       self.note_manager_result['fifty'] * 50 +
-                       self.note_manager_result['hund'] *
-                       100 + self.note_manager_result['twohund'] *
-                       200 + self.note_manager_result['fivehund'] *
-                       500 + self.note_manager_result['twothousand'] * 2000) if self.noteUV or self.noteEthanol else 0
+        note_sum = int(self.note_result['ten'] *
+                       10 + self.note_result['twenty'] * 20 +
+                       self.note_result['fifty'] * 50 +
+                       self.note_result['hund'] *
+                       100 + self.note_result['twohund'] *
+                       200 + self.note_result['fivehund'] *
+                       500 + self.note_result['twothousand'] * 2000) if self.noteUV or self.noteEthanol else 0
 
-        coin_sum = sum(self.coin_count.values()
-                       ) if self.coinUV or self.coinEthanol else 0
+        coin_sum = int(self.coin_result['one_coin']*1 +
+                       self.coin_result['two_coin']*2 + self.coin_result['five_coin']*5 + 
+                       self.coin_result['ten_coin']*10 + 
+                       self.coin_result['twenty_coin']*20) if self.coinUV or self.coinEthanol else 0
         self.total = note_sum + coin_sum
-        # self.total=100
-        # self.total = sum(self.ten_list) + sum(self.twenty_list) + sum(self.fifty_list) + sum(self.hundred_list) + \
-        #     sum(self.twohund_list) + sum(self.fivehund_list) + \
-        #     sum(self.twothousand_list)
         recieved_object.setProperty("total", self.total)
-        
+
     @ Slot(QObject)
     def progress_update(self, recieved_object):
-        for i in range(0, self.note_manager_result['progress']+2, 2):
-            # time.sleep(0.5)
-            recieved_object.setProperty(
+        if self.noteUV or self.noteEthanol:
+            for i in range(0, self.note_result['progress']+2, 2):
+                recieved_object.setProperty(
                 "progress", i)
+        elif self.coinUV or self.coinEthanol:
+            for i in range(0, self.coin_result['progress']+2, 2):
+                recieved_object.setProperty(
+                "progress", i)
+
     @Slot()
     def shutdown(self):
         os.system('sudo shutdown now')

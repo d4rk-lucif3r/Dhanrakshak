@@ -26,6 +26,8 @@ Rectangle {
     property bool showSplash: true
     property bool showLevelCheck: false
     property bool fluidCheck: false
+    property bool showTrayCheck : false
+
     Rectangle{
         anchors.fill: parent
         id:pageRect
@@ -381,18 +383,12 @@ Rectangle {
                             MouseArea{
                                 anchors.fill: parent
                                 onClicked:{
-
+                                      trayCheckTimer.running = true
                                       messagealert.visible = true
-
-
-
-
-
-
-                                }
+                                      }
                             }
                         }
-                                                Text {
+                        Text {
                             id: modenotselectedtxt
                             x: 25
                             y: 108
@@ -490,7 +486,7 @@ Rectangle {
                                 fluidCheckTimer.running = true
                             }
 
-                            text: qsTr("Ethanol")
+                            text: qsTr("Sanitizer")
                             font.family: "Source Sans Pro"
                             font.pointSize: 10
                             indicator: Rectangle {
@@ -599,7 +595,7 @@ Rectangle {
                                 fluidCheckTimer.running = true
                             }
 
-                            text: qsTr("Ethanol")
+                            text: qsTr("Sanitizer")
                             font.pointSize: 10
                             font.family: "Source Sans Pro"
 
@@ -861,6 +857,73 @@ Rectangle {
 
     }
     Rectangle{
+    id : trayAlert
+    x:265
+    y:173
+    width:271
+    height:135
+    color: "#0d47a1"
+    radius: 15
+    visible: startPageRoot.showTrayCheck
+    // visible: true
+    // z: 1
+    border.color :'#000000'
+    border.width : 2
+    Rectangle {
+        id: trayAlertrect
+        x: 8
+        y: 8
+        width: 255
+        height: 37
+        color: "#f1d22d"
+        radius: 15
+        border.color: "#000000"
+        border.width: 2
+        Text {
+            id: trayAlerttxt
+            text: qsTr("ALERT!!!")
+            anchors.bottomMargin: 0
+            anchors.fill: parent
+            font.pixelSize: 15
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.topMargin: 0
+            font.family: "Source Sans Pro Black"
+            font.bold: true
+        }
+    }
+    Rectangle {
+        id: trayAlertwarnrect
+        x: 8
+        y: 51
+        width: 255
+        height: 76
+        color: "#f64040"
+        radius: 15
+        border.color :'#000000'
+        border.width : 2
+
+        Text {
+            id: trayAlertwarntxt
+            text: qsTr("Please Close the tray before Starting")
+            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+            anchors.fill: parent
+            font.pixelSize: 17
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            anchors.topMargin: 0
+            font.family: "Source Sans Pro Black"
+            font.bold: true
+            MouseArea{
+                anchors.fill:parent
+                onClicked:{
+                    startPageRoot.showTrayCheck = false
+
+                }
+            }
+        }
+    }}
+    Rectangle{
     id : lowFluidLevelAlert
     x:265
     y:173
@@ -895,6 +958,9 @@ Rectangle {
             font.bold: true
         }
     }
+    
+    
+    
     Rectangle {
         id: lowFluidLevelAlertwarnrect
         x: 8
@@ -908,7 +974,8 @@ Rectangle {
 
         Text {
             id: lowFluidLevelAlertwarntxt
-            text: qsTr("Sanitizer Level Low")
+            text: qsTr("Sanitizer Level Low. Please Continue with UV method")
+            wrapMode: Text.WordWrap
             anchors.fill: parent
             font.pixelSize: 17
             horizontalAlignment: Text.AlignHCenter
@@ -916,7 +983,16 @@ Rectangle {
             anchors.topMargin: 0
             font.family: "Source Sans Pro Black"
             font.bold: true
-            MouseArea{}
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    startPageRoot.showLevelCheck = false
+                    messagealert.visible = false
+                    fluidCheckTimer.running = false
+                    coinethanolcheck.checked = false
+                    noteethanolcheck.checked = false
+                }
+            }
         }
     }
     }
@@ -968,7 +1044,6 @@ Rectangle {
                     position: 0
                     color: "#fd8b82"
                 }
-
                 GradientStop {
                     position: 1.4
                     color: "#000000"
@@ -1027,13 +1102,14 @@ Rectangle {
             MouseArea{
             anchors.fill:parent
             onClicked: {
-                  if((startPageRoot.noteisUV)||(startPageRoot.noteisEthanol)||(startPageRoot.coinisUV)||(startPageRoot.coinisEthanol)){
+                  if((startPageRoot.noteisUV)||(startPageRoot.noteisEthanol)||(startPageRoot.coinisUV)||(startPageRoot.coinisEthanol) && (startPageRoot.trayCheck)){
                   slot.start()
                    modenotselectedtxt.visible = false;
                   load_page('Page 2')
             }
             else{
                   modenotselectedtxt.visible = true;
+                  startPageRoot.showTrayCheck = true
                   }
             }
             }
@@ -1081,19 +1157,33 @@ Rectangle {
         running: true
         onTriggered: {
           startPageRoot.showSplash = false
-
-        }
+        }}
     Timer{
     id: fluidCheckTimer
     interval: 500
     running: false
+    repeat: true
     onTriggered: {
         slot.fluidCheck(startPageRoot)
     }
     }
 
+    Timer{
+        id : trayCheckTimer
+        interval: 500
+        running: false
+        repeat: true
+        onTriggered: {
+            slot.trayCheck(startPageRoot)
+            if (startPageRoot.showTrayCheck == true){
+                messagealert.visible = false
+                print('stopped')
+            }
+            print("trayCheckTimer")
+        }
 
     }
+    
 
 SplashScreen{
 id: splash
