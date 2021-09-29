@@ -2,6 +2,7 @@
 # cython: language_level=3
 import os
 from threading import Thread
+
 from PySide2.QtCore import QObject, Slot
 
 from helpers.config import *

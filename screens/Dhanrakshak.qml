@@ -11,7 +11,7 @@ ApplicationWindow
     width: 800
 
     height: 480
-    //flags: Qt.FramelessWindowHint | Qt.Window
+    flags: Qt.FramelessWindowHint | Qt.Window
 
     visible:true
 

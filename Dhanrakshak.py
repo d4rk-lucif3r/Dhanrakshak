@@ -3,7 +3,7 @@
 
 import sys
 
-from PySide2.QtCore import QUrl, Qt
+from PySide2.QtCore import Qt, QUrl
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtWidgets import QApplication
 
