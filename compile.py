@@ -52,15 +52,15 @@ from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
 ext_modules = [
-    # Extension("ir",  ["helpers/sensors/ir.py"]),/
+    Extension("ir",  ["helpers/sensors/ir.py"]),
     Extension("levelSensor",  ["helpers/sensors/levelSensor.py"]),
-    # Extension("limitswitch",  ["helpers/sensors/limitswitch.py"]),
-    # Extension("stepper",  ["helpers/sensors/stepper.py"]),
-    # Extension("relay",  ["helpers/sensors/relay.py"]),
-    # Extension("note_manager",  ["helpers/managers/note_manager.py"]),
-    # Extension("coin_manager",  ["helpers/managers/coin_manager.py"]),
-    # Extension("config",  ["helpers/config.py"]),
-    # Extension("detector", ["helpers/detector.py"]),
+    Extension("limitswitch",  ["helpers/sensors/limitswitch.py"]),
+    Extension("stepper",  ["helpers/sensors/stepper.py"]),
+    Extension("relay",  ["helpers/sensors/relay.py"]),
+    Extension("note_manager",  ["helpers/managers/note_manager.py"]),
+    Extension("coin_manager",  ["helpers/managers/coin_manager.py"]),
+    Extension("config",  ["helpers/config.py"]),
+    Extension("detector", ["helpers/detector.py"]),
 
 ]
 setup(

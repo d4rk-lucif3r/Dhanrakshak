@@ -6,7 +6,7 @@ import RPi.GPIO as IO
 from helpers.config import *
 from helpers.detector import Detector
 from helpers.sensors.ir import Ir
-from helpers.sensors.limitswitch import LimitSwitch
+from helpers.sensors.limit_switch import LimitSwitch
 from helpers.sensors.relay import Relay
 from helpers.sensors.stepper import Stepper
 import os
@@ -26,7 +26,7 @@ class NoteManager:
         self.conveyor_ir = Ir(IR_CONVEYOR)
 
         self.limit_switch = LimitSwitch(LIMIT_SWITCH_DISPENSE)\
-            
+
         self.lock_relay = Relay(LOCK_RELAY, type=2)
         self.uv1_relay = Relay(UV_1_NOTE)
         self.spray_relay = Relay(NOTE_SPRAY, type=2)
@@ -103,7 +103,7 @@ class NoteManager:
                 self.dispense.deactivate(1)
 
     def feed_note(self):
-        
+
         while True:
 
             if self.input_ir.detect():
@@ -217,7 +217,7 @@ class NoteManager:
                         self.dispense.move(
                             TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '20':
                         self.twenty_note_count += 1
                         self.dispense.move(
@@ -229,7 +229,7 @@ class NoteManager:
                         self.dispense.move(
                             TWEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '50':
                         self.fifty_note_count += 1
                         self.dispense.move(
@@ -241,7 +241,7 @@ class NoteManager:
                         self.dispense.move(
                             FIFTY_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Backward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '100':
                         print('[Moving 100]')
                         self.hund_note_count += 1
@@ -254,7 +254,7 @@ class NoteManager:
                         self.dispense.move(
                             HUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '200':
                         self.twohund_note_count += 1
                         self.dispense.move(
@@ -266,7 +266,7 @@ class NoteManager:
                         self.dispense.move(
                             TWOHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '500':
                         self.fivehund_note_count += 1
                         self.dispense.move(
@@ -278,7 +278,7 @@ class NoteManager:
                         self.dispense.move(
                             FIVEHUND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '2000':
                         self.twothousand_note_count += 1
                         self.dispense.move(
@@ -290,7 +290,7 @@ class NoteManager:
                         self.dispense.move(
                             TWOTHOUSAND_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     elif self.currency == '0':
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
                         self.dispense.move(
@@ -302,9 +302,9 @@ class NoteManager:
                         self.dispense.move(
                             TEN_NOTE_STEPS, NOTE_DISPENSE_MOTOR_NUM, direction='Forward')
                         self.dispense.deactivate(NOTE_DISPENSE_MOTOR_NUM)
-                        
+
                     self.progress = 100
-                        
+
                     if self.is_ethanol:
                         self.blower.off()
                     if self.is_uv:
@@ -359,7 +359,7 @@ class NoteManager:
         self.conveyor_stepper_1_process.close()
         self.conveyor_stepper_2_process.close()
         self.count = 0
-        self.ten_note_count   = 0
+        self.ten_note_count = 0
         self.twenty_note_count = 0
         self.fifty_note_count = 0
         self.hund_note_count = 0

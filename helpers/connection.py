@@ -8,7 +8,7 @@ from helpers.config import *
 from helpers.managers.coin_manager import CoinManager
 from helpers.managers.note_manager import NoteManager
 from helpers.sensors.ir import Ir
-from helpers.sensors.levelSensor import LevelSensor
+from helpers.sensors.level_sensor import LevelSensor
 from helpers.sensors.relay import Relay
 
 
@@ -72,6 +72,7 @@ class Connection(QObject):
     def fluidCheck(self, recieved_object):
         if not self.level.levelCheck():
             recieved_object.setProperty('showLevelCheck', True)
+
     @ Slot(QObject)
     def trayCheck(self, recieved_object):
         if not self.trayIR.detect():
@@ -167,7 +168,6 @@ class Connection(QObject):
 
     @ Slot(QObject)
     def sum_update(self, recieved_object):
-        # result = self.note_manager_result.values()
         note_sum = int(self.note_result['ten'] *
                        10 + self.note_result['twenty'] * 20 +
                        self.note_result['fifty'] * 50 +
@@ -177,8 +177,8 @@ class Connection(QObject):
                        500 + self.note_result['twothousand'] * 2000) if self.noteUV or self.noteEthanol else 0
 
         coin_sum = int(self.coin_result['one_coin']*1 +
-                       self.coin_result['two_coin']*2 + self.coin_result['five_coin']*5 + 
-                       self.coin_result['ten_coin']*10 + 
+                       self.coin_result['two_coin']*2 + self.coin_result['five_coin']*5 +
+                       self.coin_result['ten_coin']*10 +
                        self.coin_result['twenty_coin']*20) if self.coinUV or self.coinEthanol else 0
         self.total = note_sum + coin_sum
         recieved_object.setProperty("total", self.total)
@@ -188,11 +188,11 @@ class Connection(QObject):
         if self.noteUV or self.noteEthanol:
             for i in range(0, self.note_result['progress']+2, 2):
                 recieved_object.setProperty(
-                "progress", i)
+                    "progress", i)
         elif self.coinUV or self.coinEthanol:
             for i in range(0, self.coin_result['progress']+2, 2):
                 recieved_object.setProperty(
-                "progress", i)
+                    "progress", i)
 
     @Slot()
     def shutdown(self):

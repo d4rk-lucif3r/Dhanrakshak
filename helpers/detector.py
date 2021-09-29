@@ -4,7 +4,6 @@ from PIL import Image
 from helpers.config import *
 from tensorflow.keras.models import load_model
 from helpers.sensors.ir import Ir
-# import tflite_runtime.interpreter as tflite
 import time
 
 

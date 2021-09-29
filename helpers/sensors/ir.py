@@ -11,18 +11,15 @@ class Ir:
         IO.setup(self.pin, IO.IN)
         
     def detect(self):
-        # IO.setwarnings(False)
-        # IO.setmode(IO.BCM)
-        # IO.setup(self.pin, IO.IN)
         try:
-            if(IO.input(self.pin) == True):  # object is far away
+            if(IO.input(self.pin) == True):  
                 return False
-            if(IO.input(self.pin) == False):  # object is near
+            if(IO.input(self.pin) == False): 
                 return True
         except:
             return False
     def counter(self)    :
-        if(IO.input(self.pin) == False):  # object is near
+        if(IO.input(self.pin) == False):  
             self.__counter += 1
             return self.__counter
         else :
