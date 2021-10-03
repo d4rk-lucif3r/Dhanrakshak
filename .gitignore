@@ -8,7 +8,7 @@
 *.user
 
 # Misc
-*.cpyton
-*.c
-*.so
-*.o
+# *.cpyton
+# *.c
+# *.so
+# *.o
