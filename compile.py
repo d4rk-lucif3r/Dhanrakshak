@@ -53,8 +53,8 @@ from distutils.extension import Extension
 from Cython.Distutils import build_ext
 ext_modules = [
     Extension("ir",  ["helpers/sensors/ir.py"]),
-    Extension("levelSensor",  ["helpers/sensors/levelSensor.py"]),
-    Extension("limitswitch",  ["helpers/sensors/limitswitch.py"]),
+    Extension("level_sensor",  ["helpers/sensors/level_sensor.py"]),
+    Extension("limit_switch",  ["helpers/sensors/limit_switch.py"]),
     Extension("stepper",  ["helpers/sensors/stepper.py"]),
     Extension("relay",  ["helpers/sensors/relay.py"]),
     Extension("note_manager",  ["helpers/managers/note_manager.py"]),
