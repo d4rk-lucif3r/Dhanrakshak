@@ -2,7 +2,7 @@ import time
 
 import cv2
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageEnhance
 from tensorflow.keras.models import load_model
 
 from helpers.config import *
@@ -35,9 +35,16 @@ class Detector:
         start = time.time()
         for i in range(0, 10):
             _, self.frame = self.videoCapture.read()
-
+            self.frame = cv2.rotate(self.frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
+            self.frame = self.frame[170:700, 100:400]
             self.frame = cv2.cvtColor(self.frame, cv2.COLOR_BGR2RGB)
             self.image = Image.fromarray(self.frame, 'RGB')
+            self.sharpness_enhancer = ImageEnhance.Sharpness(self.image)
+            self.image = self.sharpness_enhancer.enhance(2)
+            self.contrast_enhancer = ImageEnhance.Contrast(self.image)
+            self.image = self.contrast_enhancer.enhance(1.5)
+            self.brightness_enhancer = ImageEnhance.Brightness(self.image)
+            self.image = self.brightness_enhancer.enhance(.8)
             self.image = self.image.resize((224, 224))
             self.image_array = np.array(self.image)
             self.image_array = np.expand_dims(self.image_array, axis=0)
